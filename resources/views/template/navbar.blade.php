@@ -1,5 +1,6 @@
 <nav class="fixed w-full z-20 top-0 start-0">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <div class="max-w-screen bg-[#003973]">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="hidden md:flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{ asset('asset/logo-oia.svg') }}" class="h-7" alt="Flowbite Logo">
             <span class="self-center text-2xl font-bold whitespace-nowrap text-white text-shadow">Sistem CSR</span>
@@ -32,6 +33,7 @@
                         class="nav-item">Data 2</a>
                 </li>
             </ul>
+        </div>
         </div>
     </div>
 </nav>

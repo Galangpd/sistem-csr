@@ -18,3 +18,7 @@ Route::get('/register-perusahaan', function () {
 Route::get('/register-masyarakat', function () {
     return view('auth.registerMasyarakat');
 });
+
+Route::get('/perusahaan/dashboard', function () {
+    return view('perusahaan.index');
+});

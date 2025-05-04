@@ -20,16 +20,12 @@
             </div>
 
             <div class="mt-2 flex md:order-2 space-x-3 md:space-x-0">
-                    <a href="/pilih-pengguna"
+                    <a href="/login"
                         class="button-custom">
                         Mulai
                     </a>
             </div>
         </div>
-
-        {{-- <div class="lg:w-1/2">
-                <img src="{{ asset('asset/logo-oia.svg') }}" alt="">
-            </div> --}}
     </div>
 
     <style>

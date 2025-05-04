@@ -1,10 +1,10 @@
-<nav class="fixed w-full z-20 top-0 start-0">
-    <div class="max-w-screen bg-[#003973]">
+<nav class="w-full start-0 relative z-10">
+    <div class="w-full bg-[#003973]">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" class="hidden md:flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="{{ asset('asset/logo-oia.svg') }}" class="h-7" alt="Flowbite Logo">
-            <span class="self-center text-2xl font-bold whitespace-nowrap text-white text-shadow">Sistem CSR</span>
-        </a>
+            <a href="/" class="hidden md:flex items-center space-x-3">
+                <img src="{{ asset('asset/logo-oia.svg') }}" class="h-7" alt="Flowbite Logo">
+                <span class="self-center text-2xl font-bold whitespace-nowrap text-white text-shadow">Sistem CSR</span>
+            </a>
 
         <button data-collapse-toggle="navbar-sticky" type="button"
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 md:hidden dark:text-gray-400 dark:hover:bg-gray-700"

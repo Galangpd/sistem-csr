@@ -5,14 +5,14 @@
         <a href="/" class="flex flex-col justify-start space-x-3 rtl:space-x-reverse">
             <div class="flex items-center">
                 <img src="{{ asset('asset/logo-oia.svg') }}" class="h-10 ml-3" />
-                <div class="text-xl font-bold break-words mx-2">Sistem CSR</div>
+                <div class="text-xl font-bold break-words mx-2">CSR</div>
             </div>
         </a>
     </div>
     <div class="h-full px-3 overflow-y-auto">
         <ul class="space-y-2 font-medium">
             <li>
-                <a href="/"
+                <a href="/perusahaan/dashboard"
                     class="side-menu {{ Request::is('dashboard*') ? 'side-menu-active' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-house"></i>
@@ -21,10 +21,10 @@
                 </a>
             </li>
             <li>
-                <a href="/"
+                <a href="/perusahaan/penilaian"
                     class="side-menu {{ Request::is('pencarian*') ? 'side-menu-active' : '' }}">
                     <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-house"></i>
+                        <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Pencarian</span>
                     </div>
                 </a>

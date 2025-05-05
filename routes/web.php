@@ -22,3 +22,7 @@ Route::get('/register-masyarakat', function () {
 Route::get('/perusahaan/dashboard', function () {
     return view('perusahaan.index');
 });
+
+Route::get('/perusahaan/penilaian', function () {
+    return view('perusahaan.penilaian');
+});

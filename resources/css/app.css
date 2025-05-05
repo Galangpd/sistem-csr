@@ -1,4 +1,5 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@source "../views";
 @import "flowbite/src/themes/default";
 
 @plugin "flowbite/plugin";
@@ -8,6 +9,7 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 @source "../../node_modules/flowbite";
+
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -24,7 +26,7 @@
     }
 
     .button-custom {
-        @apply inline-flex w-auto items-center gap-3 mt-2 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center me-2 mb-2;
+        @apply inline-flex w-auto text-center items-center gap-3 mt-2 text-white bg-gradient-to-r bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-4 py-2 me-2 mb-2;
     }
 
     .side-menu {
@@ -36,6 +38,8 @@
     }
 
     .card {
-        @apply w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4;
+        @apply w-full bg-white rounded-lg border-2 border-gray-800 shadow-lg shadow-gray-500 dark:bg-gray-800 p-4;
     }
 }
+
+

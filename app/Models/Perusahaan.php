@@ -14,6 +14,7 @@ class Perusahaan extends Model
         'nama_perusahaan', 
         'logo',
         'bidang_usaha',
+        'alamat',
         'kalurahan', 
         'kecamatan', 
         'kabupaten', 

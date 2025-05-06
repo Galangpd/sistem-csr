@@ -14,6 +14,7 @@ class Masyarakat extends Model
         'nama_masyarakat', 
         'logo',
         'bidang_usaha',
+        'alamat',
         'kalurahan', 
         'kecamatan', 
         'kabupaten', 

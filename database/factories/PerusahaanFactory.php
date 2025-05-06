@@ -17,6 +17,7 @@ class PerusahaanFactory extends Factory
             'nama_perusahaan' => $this->faker->company(),
             'logo' => 'asset/logo-oia.svg',
             'bidang_usaha' => $this->faker->catchPhrase(),
+            'alamat' => $this->faker->address(),
             'kalurahan' => $this->faker->streetName(),
             'kecamatan' => $this->faker->citySuffix(),
             'kabupaten' => $this->faker->city(),

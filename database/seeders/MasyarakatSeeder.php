@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Masyarakat;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class MasyarakatSeeder extends Seeder
 {
@@ -13,6 +14,12 @@ class MasyarakatSeeder extends Seeder
      */
     public function run(): void
     {
-        Masyarakat::factory()->count(10)->create();
+        $users = User::where('role', 'masyarakat')->get();
+
+        $users->each(function ($user) {
+            Masyarakat::factory()->create([
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }

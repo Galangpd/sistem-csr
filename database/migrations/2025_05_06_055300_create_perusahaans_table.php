@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nama_perusahaan');
-            $table->string('logo');
+            $table->string('logo')->nullable();;
             $table->string('bidang_usaha');
-            $table->string('kalurahan');
-            $table->string('kecamatan');
-            $table->string('kabupaten');
-            $table->string('provinsi');
+            $table->string('alamat');
+            $table->string('kalurahan')->nullable();;
+            $table->string('kecamatan')->nullable();;
+            $table->string('kabupaten')->nullable();;
+            $table->string('provinsi')->nullable();;
             $table->timestamps();
         });
     }

@@ -11,17 +11,15 @@ Route::get('/pilih-pengguna', function () {
     return view('guest.pilihpengguna');
 });
 
-Route::get('/register-perusahaan', function () {
-    return view('auth.registerPerusahaan');
-});
-Route::get('/register-masyarakat', function () {
-    return view('auth.registerMasyarakat');
-});
-
 Route::get('/login', [AuthenticationController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthenticationController::class, 'login'])->name('auth.login');
+Route::get('/logout', [AuthenticationController::class, 'logout'])->name('auth.logout');
+
+Route::get('/registerPerusahaan', [AuthenticationController::class, 'showRegisterPerusahaan'])->name('auth.register-perusahaan');
+Route::get('/registerMasyarakat', [AuthenticationController::class, 'showRegisterMasyarakat'])->name('auth.register-masyarakat');
+
+Route::post('/registerMasyarakat', [AuthenticationController::class, 'registerMasyarakat'])->name('register.masyarakat');
+Route::post('/registerPerusahaan', [AuthenticationController::class, 'registerPerusahaan'])->name('register.perusahaan');
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-Route::post('/login', [AuthenticationController::class, 'login'])->name('auth.login');
-
-Route::get('/logout', [AuthenticationController::class, 'logout'])->name('auth.logout');

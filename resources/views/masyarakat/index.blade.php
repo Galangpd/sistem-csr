@@ -3,7 +3,7 @@
 
 <div class="p-4 mt-16 md:mt-0">
     <div class="md:flex md:justify-between">
-        <h1 class="font-bold font-blue-500 text-[20px] md:text-md lg:text-xl xl:text-2xl text-black">Daftar Kelompok Masyarakat</h1>
+        <h1 class="font-bold font-blue-500 text-[20px] md:text-md lg:text-xl xl:text-2xl text-black">Daftar Perusahaan</h1>
     </div>
 </div>
 
@@ -33,7 +33,7 @@
                         Logo
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nama Kelompok Masyarakat
+                        Nama Perusahaan
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Bidang Usaha

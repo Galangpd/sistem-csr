@@ -30,7 +30,7 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="flex md:w-4/6 w-full bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="md:w-3/6">
-                <form action="/" method="post">
+                <form action="{{ route('auth.login') }}" method="post">
                     @csrf
                     <div class="w-full md:px-20 px-10 py-16">
                         <div class="mb-10 flex items-center space-x-3 rtl:space-x-reverse ">
@@ -63,6 +63,7 @@
                         </div>
                         <div class="mt-8">
                             <button
+                                type="submit"
                                 class="w-full flex justify-center text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center me-2 mb-2">
                                 Submit</button>
                             </form>

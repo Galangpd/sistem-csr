@@ -1,15 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('guest.index');
 });
 Route::get('/pilih-pengguna', function () {
     return view('guest.pilihpengguna');
-});
-Route::get('/login', function () {
-    return view('auth.login');
 });
 
 Route::get('/register-perusahaan', function () {
@@ -19,10 +18,10 @@ Route::get('/register-masyarakat', function () {
     return view('auth.registerMasyarakat');
 });
 
-Route::get('/perusahaan/dashboard', function () {
-    return view('perusahaan.index');
-});
+Route::get('/login', [AuthenticationController::class, 'showLogin'])->name('login');
 
-Route::get('/perusahaan/penilaian', function () {
-    return view('perusahaan.penilaian');
-});
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::post('/login', [AuthenticationController::class, 'login'])->name('auth.login');
+
+Route::get('/logout', [AuthenticationController::class, 'logout'])->name('auth.logout');

@@ -3,7 +3,14 @@
 
 <div class="p-4 mt-16 md:mt-0">
     <div class="md:flex md:justify-between">
-        <h1 class="font-bold font-blue-500 text-[20px] md:text-md lg:text-xl xl:text-2xl text-black">Daftar Kelompok Masyarakat</h1>
+        @if ($user->role === 'perusahaan')
+            <h1 class="font-bold font-blue-500 text-[20px] md:text-md lg:text-xl xl:text-2xl text-black">Daftar Kelompok Masyarakat</h1>
+        @elseif ($user->role === 'masyarakat')
+            <h1 class="font-bold font-blue-500 text-[20px] md:text-md lg:text-xl xl:text-2xl text-black">Daftar Perusahaan</h1>
+        @else
+            <h1 class="font-bold font-blue-500 text-[20px] md:text-md lg:text-xl xl:text-2xl text-black">Default</h1>
+        @endif
+        
     </div>
 </div>
 
@@ -32,9 +39,15 @@
                     <th scope="col" class="px-6 py-3">
                         Logo
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        Nama Kelompok Masyarakat
-                    </th>
+                    @if ($user->role === 'perusahaan')
+                        <th scope="col" class="px-6 py-3">
+                            Nama Kelompok Masyarakat
+                        </th>
+                    @elseif ($user->role === 'masyarakat')
+                        <th scope="col" class="px-6 py-3">
+                            Nama Perusahaan
+                        </th>
+                    @endif
                     <th scope="col" class="px-6 py-3">
                         Bidang Usaha
                     </th>

@@ -19,8 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
+        'role',
     ];
 
     /**
@@ -41,8 +42,25 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    const ROLE_PERUSAHAAN = 'perusahaan';
+    const ROLE_MASYARAKAT = 'masyarakat';
+
+    public function isPerusahaan(): bool {
+        return $this->role === self::ROLE_PERUSAHAAN;
+    }
+
+    public function isMasyarakat(): bool {
+        return $this->role === self::ROLE_MASYARAKAT;
+    }
+
+    public function perusahaan() {
+        return $this->hasOne(Perusahaan::class);
+    }
+    public function masyarakat() {
+        return $this->hasOne(Masyarakat::class);
     }
 }

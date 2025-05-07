@@ -39,62 +39,28 @@
                         Bidang Usaha
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Lokasi
+                        Alamat
                     </th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($data as $item)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                    <th class="px-6 py-4">
-                        1
-                    </th>
-                    <th class="px-6 py-4">
-                        <img src="{{ asset('asset/logo-oia.svg') }}" class="h-40 ml-3" />
-                    </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Apple MacBook Pro 17"
-                    </th>
+                    <th class="px-6 py-4">{{ $loop->iteration }}</th>
                     <td class="px-6 py-4">
-                        Silver
+                        <img src="{{ asset($item->logo) }}" class="h-20 ml-3" />
+                    </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $item->nama_masyarakat }}
                     </td>
                     <td class="px-6 py-4">
-                        Laptop
+                        {{ $item->bidang_usaha ?? '-' }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ $item->alamat }}
                     </td>
                 </tr>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                    <th class="px-6 py-4">
-                        2
-                    </th>
-                    <th class="px-6 py-4">
-                        <img src="{{ asset('asset/logo-oia.svg') }}" class="h-40 ml-3" />
-                    </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Microsoft Surface Pro
-                    </th>
-                    <td class="px-6 py-4">
-                        White
-                    </td>
-                    <td class="px-6 py-4">
-                        Laptop PC
-                    </td>
-                </tr>
-                <tr class="bg-white dark:bg-gray-800">
-                    <th class="px-6 py-4">
-                        3
-                    </th>
-                    <th class="px-6 py-4">
-                        <img src="{{ asset('asset/logo-oia.svg') }}" class="h-40 ml-3" />
-                    </th>
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Magic Mouse 2
-                    </th>
-                    <td class="px-6 py-4">
-                        Black
-                    </td>
-                    <td class="px-6 py-4">
-                        Accessories
-                    </td>
-                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

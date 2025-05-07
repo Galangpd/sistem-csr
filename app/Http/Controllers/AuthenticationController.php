@@ -14,7 +14,13 @@ class AuthenticationController extends Controller
     public function showLogin()
     {
         if (Auth::user()) {
-            return redirect()->route('dashboard');
+            $user = Auth::user();
+
+            if ($user->role === 'perusahaan') {
+                return redirect()->route('dashboard.perusahaan');
+            } elseif ($user->role === 'masyarakat') {
+                return redirect()->route('dashboard.masyarakat');
+            }
         }
 
         return view('auth.login');
@@ -94,8 +100,8 @@ class AuthenticationController extends Controller
                 $role = Auth::user()->role;
         
                 return match ($role) {
-                    'perusahaan' => redirect()->route('dashboard')->with('success', 'Login berhasil sebagai Perusahaan!'),
-                    'masyarakat' => redirect()->route('dashboard')->with('success', 'Login berhasil sebagai Masyarakat!'),
+                    'perusahaan' => redirect()->route('dashboard.perusahaan')->with('success', 'Login berhasil sebagai Perusahaan!'),
+                    'masyarakat' => redirect()->route('dashboard.masyarakat')->with('success', 'Login berhasil sebagai Masyarakat!'),
                     default => throw new \Exception('Role tidak dikenali')
                 };
             }

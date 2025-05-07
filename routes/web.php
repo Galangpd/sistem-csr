@@ -25,8 +25,11 @@ Route::post('/registerPerusahaan', [AuthenticationController::class, 'registerPe
 
 Route::middleware('role:masyarakat')->group(function () {
     Route::get('/dashboard/masyarakat', [MasyarakatController::class, 'index'])->name('dashboard.masyarakat');
+    Route::get('/setting/masyarakat', [MasyarakatController::class, 'settingProfile'])->name('setting.masyarakat');
 });
 
 Route::middleware('role:perusahaan')->group(function () {
     Route::get('/dashboard/perusahaan', [PerusahaanController::class, 'index'])->name('dashboard.perusahaan');
+    Route::get('/setting/perusahaan', [PerusahaanController::class, 'settingProfile'])->name('setting.perusahaan');
+    Route::put('/perusahaan/{id}', [PerusahaanController::class, 'updateProfile'])->name('update.setting.perusahaan');
 });

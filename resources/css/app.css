@@ -30,11 +30,11 @@
     }
 
     .side-menu {
-        @apply flex justify-between font-normal items-center w-full px-5 py-3 text-slate-400 hover:text-slate-600 transition duration-300;
+        @apply flex justify-between text-blue-500 font-normal items-center w-full px-5 py-3 hover:text-slate-600 transition duration-300;
     }
 
     .side-menu-active {
-        @apply text-blue-500 font-extrabold bg-blue-500/10 rounded-lg;
+        @apply text-white font-extrabold bg-blue-400 rounded-lg;
     }
 
     .card {

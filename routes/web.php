@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
     return view('guest.index');
@@ -25,11 +26,14 @@ Route::post('/registerPerusahaan', [AuthenticationController::class, 'registerPe
 
 Route::middleware('role:masyarakat')->group(function () {
     Route::get('/dashboard/masyarakat', [MasyarakatController::class, 'index'])->name('dashboard.masyarakat');
-    Route::get('/setting/masyarakat', [MasyarakatController::class, 'settingProfile'])->name('setting.masyarakat');
+    Route::get('/setting/masyarakat', [SettingController::class, 'index'])->name('setting.masyarakat');
+    Route::put('/setting/masyarakat/profile', [MasyarakatController::class, 'updateProfile'])->name('update.setting.masyarakat');
+    Route::put('/setting/masyarakat/user', [SettingController::class, 'updateUser'])->name('update.user.masyarakat');
 });
 
 Route::middleware('role:perusahaan')->group(function () {
     Route::get('/dashboard/perusahaan', [PerusahaanController::class, 'index'])->name('dashboard.perusahaan');
-    Route::get('/setting/perusahaan', [PerusahaanController::class, 'settingProfile'])->name('setting.perusahaan');
-    Route::put('/perusahaan/{id}', [PerusahaanController::class, 'updateProfile'])->name('update.setting.perusahaan');
+    Route::get('/setting/perusahaan', [SettingController::class, 'index'])->name('setting.perusahaan');
+    Route::put('/setting/perusahaan/profile', [PerusahaanController::class, 'updateProfile'])->name('update.setting.perusahaan');
+    Route::put('/setting/perusahaan/user', [SettingController::class, 'updateUser'])->name('update.user.perusahaan');
 });

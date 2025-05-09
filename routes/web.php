@@ -33,6 +33,7 @@ Route::middleware('role:masyarakat')->group(function () {
 
 Route::middleware('role:perusahaan')->group(function () {
     Route::get('/dashboard/perusahaan', [PerusahaanController::class, 'index'])->name('dashboard.perusahaan');
+    Route::get('/dashboard/perusahaan/penilaian', [PerusahaanController::class, 'showPenilaian'])->name('penilaian.perusahaan');
     Route::get('/setting/perusahaan', [SettingController::class, 'index'])->name('setting.perusahaan');
     Route::put('/setting/perusahaan/profile', [PerusahaanController::class, 'updateProfile'])->name('update.setting.perusahaan');
     Route::put('/setting/perusahaan/user', [SettingController::class, 'updateUser'])->name('update.user.perusahaan');

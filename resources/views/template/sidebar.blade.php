@@ -13,7 +13,7 @@
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route($user->role === 'perusahaan' ? 'dashboard.perusahaan' : 'dashboard.masyarakat') }}"
-                    class="side-menu {{ Request::is('dashboard*') ? 'side-menu-active' : '' }}">
+                    class="side-menu hover:text-white {{ Request::is('dashboard*') ? 'side-menu-active text-white' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-house"></i>
                         <span>Dashboard</span>
@@ -22,7 +22,7 @@
             </li>
             <li>
                 <a href="{{ route($user->role === 'perusahaan' ? 'setting.perusahaan' : 'setting.masyarakat') }}"
-                    class="side-menu {{ Request::is('setting*') ? 'side-menu-active' : '' }}">
+                    class="side-menu hover:text-white {{ Request::is('setting*') ? 'side-menu-active text-white' : '' }}">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-gear"></i>
                         <span>Setting</span>

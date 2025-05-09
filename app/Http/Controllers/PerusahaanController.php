@@ -78,4 +78,15 @@ class PerusahaanController extends Controller
         }
     
     }
+
+    public function showPenilaian ()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $user = Auth::user();
+    
+        return view('perusahaan.penilaian', compact('user'));
+    }
 }

@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Masyarakat;
 use App\Models\User;
+use App\Models\Masyarakat;
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MasyarakatFactory extends Factory
@@ -15,13 +16,45 @@ class MasyarakatFactory extends Factory
         return [
             'user_id' => User::factory()->state(['role' => 'masyarakat']),
             'nama_masyarakat' => $this->faker->company(),
-            'logo' => 'asset/logo-oia.svg',
-            'bidang_usaha' => $this->faker->catchPhrase(),
+            'logo' => 'asset/user.png',
+            'bidang_usaha' => Arr::random([
+                'pendidikan', 
+                'kesehatan',
+                'budaya',
+                'lingkungan',
+                'agama',
+            ]),
+            'jenis_bantuan' => Arr::random([
+                'tunai', 
+                'sarana',
+                'peralatan',
+                'pelatihan',
+            ]),
             'alamat' => $this->faker->address(),
-            'kalurahan' => $this->faker->streetName(),
-            'kecamatan' => $this->faker->citySuffix(),
-            'kabupaten' => $this->faker->city(),
-            'provinsi' => $this->faker->state(),
+            'kalurahan' => Arr::random([
+                'sendangrejo', 
+                'sendangsari',
+                'sendangmulyo',
+                'sendangarum',
+            ]),
+            'kecamatan' => Arr::random([
+                'minggir', 
+                'moyudan',
+                'gamping',
+                'godean',
+            ]),
+            'kabupaten' => Arr::random([
+                'sleman', 
+                'bantul',
+                'kulonprogo',
+                'gunungkidul',
+            ]),
+            'provinsi' => Arr::random([
+                'DIY', 
+                'Jateng',
+                'Jatim',
+                'Jabar',
+            ]),
         ];
     }
 }

@@ -47,7 +47,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $item)
+            @foreach ($data as $item)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <th class="px-6 py-4">{{ $loop->iteration }}</th>
                     <td class="px-6 py-4">

@@ -10,7 +10,7 @@ class ProfilePreference extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'id_perusahaan',
         'bidang_usaha',
         'jenis_bantuan',
         'provinsi',
@@ -24,9 +24,8 @@ class ProfilePreference extends Model
         'jenis_bantuan' => 'array',
     ];
 
-    // Relasi jika ingin mengakses data user
-    public function user()
+    public function perusahaan()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Perusahaan::class);
     }
 }

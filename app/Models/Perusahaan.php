@@ -15,13 +15,13 @@ class Perusahaan extends Model
         'logo',
         'bidang_usaha',
         'alamat',
-        'kalurahan', 
-        'kecamatan', 
-        'kabupaten', 
-        'provinsi', 
     ];
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function profilePreference(){
+        return $this->hasOne(ProfilePreference::class);
     }
 }

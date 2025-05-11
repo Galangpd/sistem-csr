@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('nama_masyarakat');
             $table->string('logo')->nullable();;
             $table->string('bidang_usaha');
+            $table->string('jenis_bantuan');
             $table->string('alamat');
-            $table->string('kalurahan')->nullable();;
-            $table->string('kecamatan')->nullable();;
-            $table->string('kabupaten')->nullable();;
-            $table->string('provinsi')->nullable();;
+            $table->string('provinsi');
+            $table->string('kabupaten');
+            $table->string('kecamatan');
+            $table->string('kalurahan');
             $table->timestamps();
         });
     }

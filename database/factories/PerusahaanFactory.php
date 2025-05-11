@@ -15,13 +15,9 @@ class PerusahaanFactory extends Factory
         return [
             'user_id' => User::factory()->state(['role' => 'perusahaan']),
             'nama_perusahaan' => $this->faker->company(),
-            'logo' => 'asset/logo-oia.svg',
+            'logo' => 'asset/user.png',
             'bidang_usaha' => $this->faker->catchPhrase(),
             'alamat' => $this->faker->address(),
-            'kalurahan' => $this->faker->streetName(),
-            'kecamatan' => $this->faker->citySuffix(),
-            'kabupaten' => $this->faker->city(),
-            'provinsi' => $this->faker->state(),
         ];
     }
 }

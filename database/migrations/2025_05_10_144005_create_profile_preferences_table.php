@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('profile_preferences', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('id_perusahaan')->nullable()->constrained('perusahaans')->onDelete('cascade');
 
             $table->json('bidang_usaha');
             $table->json('jenis_bantuan');

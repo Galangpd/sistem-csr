@@ -19,9 +19,16 @@ class PerusahaanController extends Controller
     {
 
         $user = Auth::user();
-        $data = Masyarakat::all();
+        $dataMasyarakat = Masyarakat::all();
+        $perusahaan = Perusahaan::where('user_id', $user->id)->firstOrFail();
+
+        $hasPreference = ProfilePreference::where('id_perusahaan', $user->id)->exists();
+
+        if (!$hasPreference) {
+            return redirect()->route('penilaian.perusahaan');
+        }
     
-        return view('perusahaan.index', compact('data', 'user'));
+        return view('perusahaan.index', compact('dataMasyarakat', 'user'));
     }
 
     public function updateProfile(Request $request){
@@ -30,10 +37,6 @@ class PerusahaanController extends Controller
             'nama' => 'required|string|max:255',
             'bidang_usaha' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'provinsi' => 'nullable|string|max:255',
-            'kabupaten' => 'nullable|string|max:255',
-            'kecamatan' => 'nullable|string|max:255',
-            'kalurahan' => 'nullable|string|max:255',
         ]);
     
         try {
@@ -60,10 +63,6 @@ class PerusahaanController extends Controller
                 'nama_perusahaan' => $request->nama,
                 'bidang_usaha' => $request->bidang_usaha,
                 'alamat' => $request->alamat,
-                'kalurahan' => $request->kalurahan,
-                'kecamatan' => $request->kecamatan,
-                'kabupaten' => $request->kabupaten,
-                'provinsi' => $request->provinsi,
             ]);
 
             DB::commit();

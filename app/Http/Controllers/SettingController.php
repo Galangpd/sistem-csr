@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Hash;
 class SettingController extends Controller
 {
     public function index(){
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
     
         $user = Auth::user();
         $data = null;

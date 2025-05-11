@@ -17,9 +17,6 @@ class PerusahaanController extends Controller
 {
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
 
         $user = Auth::user();
         $data = Masyarakat::all();
@@ -82,9 +79,6 @@ class PerusahaanController extends Controller
 
     public function showPenilaian ()
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
 
         $user = Auth::user();
     

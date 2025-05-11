@@ -15,9 +15,6 @@ class MasyarakatController extends Controller
 {
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
 
         $user = Auth::user();
         $data = Perusahaan::all();

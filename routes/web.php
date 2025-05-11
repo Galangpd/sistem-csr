@@ -24,14 +24,14 @@ Route::get('/registerMasyarakat', [AuthenticationController::class, 'showRegiste
 Route::post('/registerMasyarakat', [AuthenticationController::class, 'registerMasyarakat'])->name('register.masyarakat');
 Route::post('/registerPerusahaan', [AuthenticationController::class, 'registerPerusahaan'])->name('register.perusahaan');
 
-Route::middleware('role:masyarakat')->group(function () {
+Route::middleware(['auth', 'role:masyarakat'])->group(function () {
     Route::get('/dashboard/masyarakat', [MasyarakatController::class, 'index'])->name('dashboard.masyarakat');
     Route::get('/setting/masyarakat', [SettingController::class, 'index'])->name('setting.masyarakat');
     Route::put('/setting/masyarakat/profile', [MasyarakatController::class, 'updateProfile'])->name('update.setting.masyarakat');
     Route::put('/setting/masyarakat/user', [SettingController::class, 'updateUser'])->name('update.user.masyarakat');
 });
 
-Route::middleware('role:perusahaan')->group(function () {
+Route::middleware(['auth','role:perusahaan'])->group(function () {
     Route::get('/dashboard/perusahaan', [PerusahaanController::class, 'index'])->name('dashboard.perusahaan');
     Route::get('/dashboard/perusahaan/penilaian', [PerusahaanController::class, 'showPenilaian'])->name('penilaian.perusahaan');
     Route::post('/dashboard/perusahaan/penilaian', [PerusahaanController::class, 'profileMatching'])->name('store.penilaian.perusahaan');

@@ -9,11 +9,14 @@
 
 <div class="card border border-gray-300 shadow-lg">
     
-    <form id="sortForm" method="POST" action="{{ route('store.penilaian.perusahaan') }}">
+    <form id="sortForm" method="POST" action="{{ $isEdit ? route('update.penilaian.perusahaan') : route('store.penilaian.perusahaan') }}">
         @csrf
+        @if($isEdit)
+            @method('PUT')
+        @endif
+        <label for="bidang-usaha" class="block px-5 mb-2 text-lg font-semibold text-gray-900 dark:text-white">Bidang Usaha</label>
+        <div class="mb-3 px-5"><span class="text-sm"><i>Urutkan berdasarkan prioritas</i></span></div>
         <div id="list-bidang" class="mb-5 px-5">
-            <label for="bidang-usaha" class="block mb-2 text-lg font-semibold text-gray-900 dark:text-white">Bidang Usaha</label>
-            <div class="mb-3"><span class="text-sm"><i>Urutkan berdasarkan prioritas</i></span></div>
             <div class="sortable-item" data-id="pendidikan"><span class="handle">⋮⋮</span>Pendidikan</div>
             <div class="sortable-item" data-id="kesehatan"><span class="handle">⋮⋮</span>Kesehatan</div>
             <div class="sortable-item" data-id="budaya"><span class="handle">⋮⋮</span>Budaya</div>
@@ -23,9 +26,9 @@
 
         <hr class="mb-5">
 
+        <label for="bidang-usaha" class="block px-5 mb-2 text-lg font-semibold text-gray-900 dark:text-white">Jenis Bantuan</label>
+        <div class="mb-3 px-5"><span class="text-sm"><i>Urutkan berdasarkan prioritas</i></span></div>
         <div class="mb-5 px-5" id="list-bantuan">
-            <label for="bidang-usaha" class="block mb-2 text-lg font-semibold text-gray-900 dark:text-white">Jenis Bantuan</label>
-            <div class="mb-3"><span class="text-sm"><i>Urutkan berdasarkan prioritas</i></span></div>
             <div class="sortable-item" data-id="tunai"><span class="handle">⋮⋮</span>Uang Tunai</div>
             <div class="sortable-item" data-id="sarana"><span class="handle">⋮⋮</span>Sarana dan Prasarana</div>
             <div class="sortable-item" data-id="peralatan"><span class="handle">⋮⋮</span>Peralatan Usaha</div>
@@ -50,30 +53,30 @@
                     <label for="kabupaten" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten</label>
                     <select name="kabupaten" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Pilih Kabupaten</option>
-                        <option value="Sleman">Sleman</option>
-                        <option value="Bantul">Bantul</option>
-                        <option value="Kulonprogo">Kulonprogo</option>
-                        <option value="Gunungkidul">Gunung Kidul</option>
+                        <option value="sleman">Sleman</option>
+                        <option value="bantul">Bantul</option>
+                        <option value="kulonprogo">Kulonprogo</option>
+                        <option value="gunungkidul">Gunung Kidul</option>
                     </select>
                 </div> 
                 <div>
                     <label for="kecamatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
                     <select name="kecamatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Pilih Kecamatan</option>
-                        <option value="Minggir">Minggir</option>
-                        <option value="Moyudan">Moyudan</option>
-                        <option value="FR">Gamping</option>
-                        <option value="Godean">Godean</option>
+                        <option value="minggir">Minggir</option>
+                        <option value="moyudan">Moyudan</option>
+                        <option value="gamping">Gamping</option>
+                        <option value="godean">Godean</option>
                     </select>
                 </div> 
                 <div>
                     <label for="kalurahan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kalurahan</label>
                     <select name="kalurahan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Pilih Kalurahan</option>
-                        <option value="Sendangrejo">Sendangrejo</option>
-                        <option value="Sendangsari">Sendangsari</option>
-                        <option value="Sendangmulyo">Sendangmulyo</option>
-                        <option value="Sendangarum">Sendangarum</option>
+                        <option value="sendangrejo">Sendangrejo</option>
+                        <option value="sendangsari">Sendangsari</option>
+                        <option value="sendangmulyo">Sendangmulyo</option>
+                        <option value="sendangarum">Sendangarum</option>
                     </select>
                 </div>
         </div>

@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BidangUsaha;
+use App\Models\JenisBantuan;
 use App\Models\Masyarakat;
 use App\Models\User;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\Village;
 
 class AuthenticationController extends Controller
 {
@@ -28,12 +34,27 @@ class AuthenticationController extends Controller
 
     public function showRegisterPerusahaan()
     {
+
         return view('auth.registerPerusahaan');
     }
 
     public function showRegisterMasyarakat()
     {
-        return view('auth.registerMasyarakat');
+        $bidangUsaha = BidangUsaha::all();
+        $jenisBantuan = JenisBantuan::all();
+        $provinsi = Province::all();
+        $kabupaten = City::all();
+        $kecamatan = District::all();
+        $kalurahan = Village::all();
+
+        return view('auth.registerMasyarakat', compact(
+            'bidangUsaha',
+            'jenisBantuan',
+            'provinsi',
+            'kabupaten',
+            'kecamatan',
+            'kalurahan'
+        ));
     }
 
     public function registerPerusahaan(Request $request)

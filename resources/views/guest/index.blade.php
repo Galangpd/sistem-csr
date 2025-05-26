@@ -10,10 +10,10 @@
         <div class="lg:w-1/2">
             <a href="/" class="flex md:hidden items-center space-x-3 rtl:space-x-reverse ">
                 <img src="{{ asset('asset/logo-oia.svg') }}" class="h-7" alt="Flowbite Logo">
-                <span class="self-center text-3xl font-bold whitespace-nowrap text-white text-shadow">Sistem CSR</span>
+                <span class="self-center text-3xl font-bold whitespace-nowrap text-white text-shadow">CSR</span>
             </a>
             <div class="font-bold text-white lg:text-6xl text-3xl text-shadow">
-                Sistem CSR
+                CSR
             </div>
             <div class="mt-2 text-white text-shadow lg:text-lg">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat ab pariatur sequi enim, vitae, libero doloribus fuga, hic illo saepe quia commodi! Neque vero optio iste ullam eveniet a sunt, earum atque minus dolor asperiores inventore, placeat aliquid voluptas minima quis sit tempora qui. Natus excepturi quaerat eaque dicta magni!

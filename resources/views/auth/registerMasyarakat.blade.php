@@ -17,16 +17,70 @@
             </div>
             <div class="mb-6">
                 <label for="bidang" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bidang Fokus Organisasi/Instansi</label>
-                <input type="text" name="bidang_usaha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="pertambangan" required />
+                <select id="bidang_usaha" name="bidang_usaha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="" selected disabled>Pilih Bidang Usaha</option>
+                    @foreach ($bidangUsaha as $bidang)
+                        <option value="{{ $bidang->nama }}">{{ $bidang->nama }}</option>
+                    @endforeach
+                </select>
+            </div> 
+            <div class="mb-6">
+                <label for="bidang" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Bantuan yang diharapkan</label>
+                <select id="jenis_bantuan" name="jenis_bantuan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="" selected disabled>Pilih Jenis Bantuan</option>
+                    @foreach ($jenisBantuan as $bantuan)
+                        <option value="{{ $bantuan->nama }}">{{ $bantuan->nama }}</option>
+                    @endforeach
+                </select>
             </div> 
             <div class="mb-6">
                 <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                 <input type="text" name="alamat" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="yogyakarta" required />
+            </div>
+            <div class="mb-6">
+                <div class="mb-5 grid gap-6 md:grid-cols-2">
+                        <div>
+                            <label for="provinsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
+                            <select name="provinsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="" selected disabled>Pilih Provinsi</option>
+                                @foreach ($provinsi as $item)
+                                    <option value="{{ $item->code }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                        <div>
+                            <label for="kabupaten" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten</label>
+                            <select name="kabupaten" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="" selected disabled>Pilih Kabupaten</option>
+                                @foreach ($kabupaten as $item)
+                                    <option value="{{ $item->code }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                        <div>
+                            <label for="kecamatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
+                            <select name="kecamatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="" selected disabled>Pilih Kecamatan</option>
+                                @foreach ($kecamatan as $item)
+                                    <option value="{{ $item->code }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                        <div>
+                            <label for="kalurahan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kalurahan</label>
+                            <select name="kalurahan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="" selected disabled>Pilih Kalurahan</option>
+                                @foreach ($kalurahan as $item)
+                                    <option value="{{ $item->code }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                </div>
             </div> 
-                <div class="mb-6">
-                    <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                    <input type="text" name="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ptsentosa" required />
-                </div> 
+            <div class="mb-6">
+                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                <input type="text" name="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ptsentosa" required />
+            </div> 
             <div class="mb-6">
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />

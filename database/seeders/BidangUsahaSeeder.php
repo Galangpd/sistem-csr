@@ -14,11 +14,11 @@ class BidangUsahaSeeder extends Seeder
     public function run(): void
     {
         $bidangUsaha = [
-            ['nama' => 'pendidikan'],
-            ['nama' => 'kesehatan'],
-            ['nama' => 'budaya'],
-            ['nama' => 'lingkungan'],
-            ['nama' => 'agama'],
+            ['nama' => 'Pendidikan'],
+            ['nama' => 'Kesehatan'],
+            ['nama' => 'Budaya'],
+            ['nama' => 'Lingkungan'],
+            ['nama' => 'Agama'],
         ];
 
         BidangUsaha::insert($bidangUsaha);

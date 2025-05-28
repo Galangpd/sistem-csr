@@ -15,15 +15,20 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nama_masyarakat');
-            $table->string('logo')->nullable();;
-            $table->string('bidang_usaha');
-            $table->string('jenis_bantuan');
+            $table->string('logo')->nullable();
+            $table->foreignId('bidang_usaha')->constrained();
+            $table->foreignId('jenis_bantuan')->constrained();
             $table->string('alamat');
-            $table->string('provinsi');
-            $table->string('kabupaten');
-            $table->string('kecamatan');
-            $table->string('kalurahan');
+            $table->char('provinsi', 2);
+            $table->char('kabupaten', 4);
+            $table->char('kecamatan', 7);
+            $table->char('kalurahan', 10);
             $table->timestamps();
+
+            $table->foreign('provinsi')->references('code')->on('indonesia_provinces');
+            $table->foreign('kabupaten')->references('code')->on('indonesia_cities');
+            $table->foreign('kecamatan')->references('code')->on('indonesia_districts');
+            $table->foreign('kalurahan')->references('code')->on('indonesia_villages');
         });
     }
 

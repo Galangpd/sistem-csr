@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\JenisBantuan;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Masyarakat;
@@ -18,6 +19,8 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
         $this->call([
+            BidangUsahaSeeder::class,
+            JenisBantuanSeeder::class,
             PerusahaanSeeder::class,
             MasyarakatSeeder::class,
             ProfilePreferenceSeeder::class,

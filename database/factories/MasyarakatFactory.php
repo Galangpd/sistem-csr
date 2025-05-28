@@ -19,13 +19,13 @@ class MasyarakatFactory extends Factory
 
     public function definition(): array
     {
-        $bidang_usaha = BidangUsaha::inRandomOrder()->value('nama');
-        $jenisbantuan = JenisBantuan::inRandomOrder()->value('nama');
+        $bidang_usaha = BidangUsaha::inRandomOrder()->value('id');
+        $jenisbantuan = JenisBantuan::inRandomOrder()->value('id');
 
-        $provinsi = Province::inRandomOrder()->value('code');
-        $kabupaten = City::inRandomOrder()->value('code');
-        $kecamatan = District::inRandomOrder()->value('code');
-        $kalurahan = Village::inRandomOrder()->value('code');
+        $provinsi = Province::inRandomOrder()->first();
+        $kabupaten = City::where('province_code', $provinsi?->code)->inRandomOrder()->first();
+        $kecamatan = District::where('city_code', $kabupaten?->code)->inRandomOrder()->first();
+        $kalurahan = Village::where('district_code', $kecamatan?->code)->inRandomOrder()->first();
 
         return [
             'user_id' => User::factory()->state(['role' => 'masyarakat']),
@@ -34,10 +34,10 @@ class MasyarakatFactory extends Factory
             'bidang_usaha' => $bidang_usaha,
             'jenis_bantuan' => $jenisbantuan,
             'alamat' => $this->faker->address(),
-            'kalurahan' => $kalurahan,
-            'kecamatan' => $kecamatan,
-            'kabupaten' => $kabupaten,
-            'provinsi' => $provinsi,
+            'provinsi' => $provinsi->code,
+            'kabupaten' => $kabupaten->code,
+            'kecamatan' => $kecamatan->code,
+            'kalurahan' => $kalurahan->code,
         ];
     }
 }

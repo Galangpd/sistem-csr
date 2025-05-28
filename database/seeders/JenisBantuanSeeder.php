@@ -14,10 +14,10 @@ class JenisBantuanSeeder extends Seeder
     public function run(): void
     {
         $jenisbantuan = [
-            ['nama' => 'tunai'],
-            ['nama' => 'prasarana'],
-            ['nama' => 'peralatan'],
-            ['nama' => 'pelatihan'],
+            ['nama' => 'Uang Tunai'],
+            ['nama' => 'Sarana dan Prasarana'],
+            ['nama' => 'Peralatan Usaha'],
+            ['nama' => 'Pelatihan'],
         ];
 
         JenisBantuan::insert($jenisbantuan);

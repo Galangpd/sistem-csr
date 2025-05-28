@@ -17,11 +17,9 @@
         <label for="bidang-usaha" class="block px-5 mb-2 text-lg font-semibold text-gray-900 dark:text-white">Bidang Usaha</label>
         <div class="mb-3 px-5"><span class="text-sm"><i>Urutkan berdasarkan prioritas</i></span></div>
         <div id="list-bidang" class="mb-5 px-5">
-            <div class="sortable-item" data-id="pendidikan"><span class="handle">⋮⋮</span>Pendidikan</div>
-            <div class="sortable-item" data-id="kesehatan"><span class="handle">⋮⋮</span>Kesehatan</div>
-            <div class="sortable-item" data-id="budaya"><span class="handle">⋮⋮</span>Budaya</div>
-            <div class="sortable-item" data-id="lingkungan"><span class="handle">⋮⋮</span>Lingkungan</div>
-            <div class="sortable-item" data-id="agama"><span class="handle">⋮⋮</span>Agama</div>
+            @foreach ($bidang_usaha as $item)
+                <div class="sortable-item" data-id="{{ $item->id }}"><span class="handle">⋮⋮</span>{{ $item->nama }}</div>
+            @endforeach
         </div>
 
         <hr class="mb-5">
@@ -29,10 +27,9 @@
         <label for="bidang-usaha" class="block px-5 mb-2 text-lg font-semibold text-gray-900 dark:text-white">Jenis Bantuan</label>
         <div class="mb-3 px-5"><span class="text-sm"><i>Urutkan berdasarkan prioritas</i></span></div>
         <div class="mb-5 px-5" id="list-bantuan">
-            <div class="sortable-item" data-id="tunai"><span class="handle">⋮⋮</span>Uang Tunai</div>
-            <div class="sortable-item" data-id="sarana"><span class="handle">⋮⋮</span>Sarana dan Prasarana</div>
-            <div class="sortable-item" data-id="peralatan"><span class="handle">⋮⋮</span>Peralatan Usaha</div>
-            <div class="sortable-item" data-id="pelatihan"><span class="handle">⋮⋮</span>Pelatihan</div>
+            @foreach ($jenis_bantuan as $item)
+                <div class="sortable-item" data-id="{{ $item->id }}"><span class="handle">⋮⋮</span>{{ $item->nama }}</div>
+            @endforeach
         </div>
 
         <hr class="mb-5">
@@ -41,42 +38,29 @@
         <div class="mb-5 px-5 grid gap-6 md:grid-cols-2">
                 <div>
                     <label for="provinsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
-                    <select name="provinsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="">Pilih Provinsi</option>
-                        <option value="DIY">Daerah Istimewa Yogyakarta</option>
-                        <option value="Jateng">Jawa Tengah</option>
-                        <option value="Jatim">Jawa Timur</option>
-                        <option value="Jabar">Jawa Barat</option>
+                    <select name="provinsi" id="provinsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected disabled>Pilih Provinsi</option>
+                                @foreach ($provinsi as $item)
+                                    <option value="{{ $item->code }}">{{ $item->name }}</option>
+                                @endforeach
                     </select>
                 </div> 
                 <div>
                     <label for="kabupaten" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten</label>
-                    <select name="kabupaten" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="">Pilih Kabupaten</option>
-                        <option value="sleman">Sleman</option>
-                        <option value="bantul">Bantul</option>
-                        <option value="kulonprogo">Kulonprogo</option>
-                        <option value="gunungkidul">Gunung Kidul</option>
+                    <select name="kabupaten" id="kabupaten" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected disabled>Pilih Provinsi terlebih dahulu</option>
                     </select>
                 </div> 
                 <div>
                     <label for="kecamatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
-                    <select name="kecamatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="">Pilih Kecamatan</option>
-                        <option value="minggir">Minggir</option>
-                        <option value="moyudan">Moyudan</option>
-                        <option value="gamping">Gamping</option>
-                        <option value="godean">Godean</option>
+                    <select name="kecamatan" id="kecamatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected disabled>Pilih Kabupaten terlebih dahulu</option>
                     </select>
                 </div> 
                 <div>
                     <label for="kalurahan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kalurahan</label>
-                    <select name="kalurahan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="">Pilih Kalurahan</option>
-                        <option value="sendangrejo">Sendangrejo</option>
-                        <option value="sendangsari">Sendangsari</option>
-                        <option value="sendangmulyo">Sendangmulyo</option>
-                        <option value="sendangarum">Sendangarum</option>
+                    <select name="kalurahan" id="kalurahan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected disabled>Pilih Kecamatan terlebih dahulu</option>
                     </select>
                 </div>
         </div>
@@ -182,4 +166,45 @@
         });
     </script>
 @endif
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $('#provinsi').change(function () {
+        let provinsiID = $(this).val();
+        $('#kabupaten').html('<option selected disabled>Loading...</option>');
+        $.get('/get-kabupaten/' + provinsiID, function (data) {
+            let options = '<option selected disabled>Pilih Kabupaten</option>';
+            data.forEach(item => {
+                options += `<option value="${item.code}">${item.name}</option>`;
+            });
+            $('#kabupaten').html(options);
+        });
+    });
+
+    $('#kabupaten').change(function () {
+        let kabupatenID = $(this).val();
+        $('#kecamatan').html('<option selected disabled>Loading...</option>');
+        $.get('/get-kecamatan/' + kabupatenID, function (data) {
+            let options = '<option selected disabled>Pilih Kecamatan</option>';
+            data.forEach(item => {
+                options += `<option value="${item.code}">${item.name}</option>`;
+            });
+            $('#kecamatan').html(options);
+        });
+    });
+
+    $('#kecamatan').change(function () {
+        let kecamatanID = $(this).val();
+        $('#kalurahan').html('<option selected disabled>Loading...</option>');
+        $.get('/get-kalurahan/' + kecamatanID, function (data) {
+            let options = '<option selected disabled>Pilih Kalurahan</option>';
+            data.forEach(item => {
+                options += `<option value="${item.code}">${item.name}</option>`;
+            });
+            $('#kalurahan').html(options);
+        });
+    });
+</script>
 @endpush

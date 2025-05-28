@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BidangUsaha;
+use App\Models\JenisBantuan;
 use App\Models\User;
 use App\Models\Masyarakat;
 use App\Models\Perusahaan;
@@ -12,6 +14,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\Village;
 
 class PerusahaanController extends Controller
 {
@@ -83,15 +89,18 @@ class PerusahaanController extends Controller
         $user = Auth::user();
         $perusahaan = Perusahaan::where('user_id', $user->id)->firstOrFail();
         $hasPreference = ProfilePreference::where('id_perusahaan', $perusahaan->id)->exists();
+        $provinsi = Province::all();
+        $bidang_usaha = BidangUsaha::all();
+        $jenis_bantuan = JenisBantuan::all();
 
 
         if (!$hasPreference) {
             $isEdit =  false;
-            return view('perusahaan.penilaian', compact('user', 'isEdit'));
+            return view('perusahaan.penilaian', compact('user', 'isEdit', 'provinsi', 'bidang_usaha', 'jenis_bantuan'));
         }
     
         $isEdit =  true;
-        return view('perusahaan.penilaian', compact('user', 'hasPreference', 'isEdit'));
+        return view('perusahaan.penilaian', compact('user', 'hasPreference', 'isEdit', 'provinsi', 'bidang_usaha', 'jenis_bantuan'));
     }
 
     public function storePreference(Request $request){
@@ -168,6 +177,21 @@ class PerusahaanController extends Controller
         }
     }
 
+    public function detailMasyarakat($id)
+    {
+        $user = Auth::user();
+        $masyarakat = Masyarakat::where('id', $id)->first();
+        $bidangUsaha = BidangUsaha::where('id', $masyarakat->bidang_usaha)->first();
+        $jenisBantuan = JenisBantuan::where('id', $masyarakat->jenis_bantuan)->first();
+        $provinsi = Province::where('code', $masyarakat->provinsi)->first();
+        $kabupaten = City::where('code', $masyarakat->kabupaten)->first();
+        $kecamatan = District::where('code', $masyarakat->kecamatan)->first();
+        $kalurahan = Village::where('code', $masyarakat->kalurahan)->first();
+
+
+         return view('perusahaan.detailMasyarakat', compact('masyarakat', 'user', 'bidangUsaha', 'jenisBantuan', 'provinsi', 'kabupaten', 'kecamatan', 'kalurahan'));
+    }
+
     public function profileMatching()
     {
         $user = Auth::user();
@@ -204,13 +228,15 @@ class PerusahaanController extends Controller
 
             // Total skor akhir
             $total_skor = $result_bidang['skor'] + $result_jenis['skor'] + $skor_lokasi;
+            $bidangUsaha = BidangUsaha::where('id', $masyarakat->bidang_usaha)->first();
+            $jenisBantuan = JenisBantuan::where('id', $masyarakat->jenis_bantuan)->first();
 
             $hasil[] = [
                 'id_masyarakat' => $masyarakat->id,
                 'logo' => $masyarakat->logo,
                 'nama_masyarakat' => $masyarakat->nama_masyarakat,
-                'bidang_usaha' => $masyarakat->bidang_usaha,
-                'jenis_bantuan' => $masyarakat->jenis_bantuan,
+                'bidang_usaha' => $bidangUsaha->nama,
+                'jenis_bantuan' => $jenisBantuan->nama,
                 'alamat' => $masyarakat->alamat,
                 'total_skor' => $total_skor,
             ];

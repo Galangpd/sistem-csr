@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Masyarakat;
+use App\Models\Perusahaan;
 use App\Models\BidangUsaha;
 use App\Models\JenisBantuan;
-use App\Models\Masyarakat;
-use App\Models\User;
-use App\Models\Perusahaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Laravolt\Indonesia\Models\City;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\Village;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
-use Laravolt\Indonesia\Models\Village;
 
 class AuthenticationController extends Controller
 {
@@ -43,17 +45,11 @@ class AuthenticationController extends Controller
         $bidangUsaha = BidangUsaha::all();
         $jenisBantuan = JenisBantuan::all();
         $provinsi = Province::all();
-        $kabupaten = City::all();
-        $kecamatan = District::all();
-        $kalurahan = Village::all();
 
         return view('auth.registerMasyarakat', compact(
             'bidangUsaha',
             'jenisBantuan',
             'provinsi',
-            'kabupaten',
-            'kecamatan',
-            'kalurahan'
         ));
     }
 
@@ -85,26 +81,51 @@ class AuthenticationController extends Controller
     public function registerMasyarakat(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|unique:users,username',
-            'password' => 'required|string|min:6|confirmed',
-            'nama_masyarakat' => 'required|string',
-            'bidang_usaha' => 'nullable|string',
+        'username' => 'required|string|unique:users,username',
+        'password' => 'required|string|min:6|confirmed',
+        'nama_masyarakat' => 'required|string',
+        'bidang_usaha' => 'required|string',
+        'jenis_bantuan' => 'required|string',
+        'alamat' => 'required|string',
+        'provinsi' => 'required|string',
+        'kabupaten' => 'required|string',
+        'kecamatan' => 'required|string',
+        'kalurahan' => 'required|string',
         ]);
 
-        $user = User::create([
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'role' => 'masyarakat',
-        ]);
+        try {
+            DB::beginTransaction();
 
-        Masyarakat::create([
-            'user_id' => $user->id,
-            'nama_masyarakat' => $request->nama_masyarakat,
-            'bidang_usaha' => $request->bidang_usaha,
-            'alamat' => $request->alamat,
-        ]);
+            $user = User::create([
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'role' => 'masyarakat',
+            ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi kelompok masyarakat berhasil!');
+            Masyarakat::create([
+                'user_id' => $user->id,
+                'nama_masyarakat' => $request->nama_masyarakat,
+                'bidang_usaha' => $request->bidang_usaha,
+                'jenis_bantuan' => $request->jenis_bantuan,
+                'alamat' => $request->alamat,
+                'provinsi' => $request->provinsi,
+                'kabupaten' => $request->kabupaten,
+                'kecamatan' => $request->kecamatan,
+                'kalurahan' => $request->kalurahan,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('login')->with('success', 'Registrasi kelompok masyarakat berhasil!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Registrasi Gagal: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Registrasi Gagal: ' . $e->getMessage());
+        }
+        
+
+        
     }
 
     public function login(Request $request)

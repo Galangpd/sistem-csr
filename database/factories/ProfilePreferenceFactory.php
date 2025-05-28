@@ -23,23 +23,23 @@ class ProfilePreferenceFactory extends Factory
     public function definition(): array
     {
 
-        $bidangUsaha = BidangUsaha::inRandomOrder()->pluck('nama')->toArray();
+        $bidangUsaha = BidangUsaha::inRandomOrder()->pluck('id')->toArray();
 
-        $jenisBantuan = JenisBantuan::inRandomOrder()->pluck('nama')->toArray();
+        $jenisBantuan = JenisBantuan::inRandomOrder()->pluck('id')->toArray();
 
-        $provinsi = Province::inRandomOrder()->value('code');
-        $kabupaten = City::inRandomOrder()->value('code');
-        $kecamatan = District::inRandomOrder()->value('code');
-        $kalurahan = Village::inRandomOrder()->value('code');
+        $provinsi = Province::inRandomOrder()->first();
+        $kabupaten = City::where('province_code', $provinsi?->code)->inRandomOrder()->first();
+        $kecamatan = District::where('city_code', $kabupaten?->code)->inRandomOrder()->first();
+        $kalurahan = Village::where('district_code', $kecamatan?->code)->inRandomOrder()->first();
 
         return [
             'id_perusahaan' => Perusahaan::factory(),
             'bidang_usaha' => $bidangUsaha,
             'jenis_bantuan' => $jenisBantuan,
-            'provinsi' => $provinsi,
-            'kabupaten' => $kabupaten,
-            'kecamatan' => $kecamatan,
-            'kalurahan' => $kalurahan,
+            'provinsi' => $provinsi->code,
+            'kabupaten' => $kabupaten->code,
+            'kecamatan' => $kecamatan->code,
+            'kalurahan' => $kalurahan->code,
         ];
     }
 }

@@ -4,25 +4,43 @@ namespace App\Http\Controllers;
 
 use App\Models\Masyarakat;
 use App\Models\Perusahaan;
+use App\Models\BidangUsaha;
+use App\Models\JenisBantuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\Village;
 
 class SettingController extends Controller
 {
-    public function index(){
+    public function perusahaan(){
     
         $user = Auth::user();
         $data = null;
     
-        if ($user->role === 'perusahaan') {
-            $data = Perusahaan::where('user_id', $user->id)->first();
-        } elseif ($user->role === 'masyarakat') {
-            $data = Masyarakat::where('user_id', $user->id)->first();
-        }
+        $data = Perusahaan::where('user_id', $user->id)->first();
     
-        return view('settings.index', compact('data', 'user'));
+        return view('perusahaan.setting', compact('data', 'user'));
+    }
+
+    public function masyarakat(){
+    
+        $user = Auth::user();
+        $bidangUsaha = BidangUsaha::all();
+        $jenisBantuan = JenisBantuan::all();
+        $provinsi = Province::all();
+        $data = null;
+    
+        $data = Masyarakat::where('user_id', $user->id)->first();
+        $kabupaten = City::where('province_code', $data->provinsi)->get();
+        $kecamatan = District::where('city_code', $data->kabupaten)->get();
+        $kalurahan = Village::where('district_code', $data->kecamatan)->get();
+    
+        return view('masyarakat.setting', compact('data', 'user', 'bidangUsaha', 'jenisBantuan', 'provinsi', 'kabupaten', 'kecamatan', 'kalurahan'));
     }
 
     public function updateUser(Request $request){

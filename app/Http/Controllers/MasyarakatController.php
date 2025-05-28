@@ -27,12 +27,13 @@ class MasyarakatController extends Controller
         $request->validate([
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama' => 'required|string|max:255',
-            'bidang_usaha' => 'required|string|max:255',
+            'bidang_usaha' => 'required',
+            'jenis_bantuan' => 'required',
             'alamat' => 'required|string|max:255',
-            'provinsi' => 'nullable|string|max:255',
-            'kabupaten' => 'nullable|string|max:255',
-            'kecamatan' => 'nullable|string|max:255',
-            'kalurahan' => 'nullable|string|max:255',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'kalurahan' => 'required',
         ]);
     
         try {
@@ -58,6 +59,7 @@ class MasyarakatController extends Controller
             $masyarakat->update([
                 'nama_masyarakat' => $request->nama,
                 'bidang_usaha' => $request->bidang_usaha,
+                'jenis_bantuan' => $request->jenis_bantuan,
                 'alamat' => $request->alamat,
                 'kalurahan' => $request->kalurahan,
                 'kecamatan' => $request->kecamatan,

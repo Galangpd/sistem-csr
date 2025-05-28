@@ -20,7 +20,7 @@
                 <select id="bidang_usaha" name="bidang_usaha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="" selected disabled>Pilih Bidang Usaha</option>
                     @foreach ($bidangUsaha as $bidang)
-                        <option value="{{ $bidang->nama }}">{{ $bidang->nama }}</option>
+                        <option value="{{ $bidang->id }}">{{ $bidang->nama }}</option>
                     @endforeach
                 </select>
             </div> 
@@ -29,7 +29,7 @@
                 <select id="jenis_bantuan" name="jenis_bantuan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="" selected disabled>Pilih Jenis Bantuan</option>
                     @foreach ($jenisBantuan as $bantuan)
-                        <option value="{{ $bantuan->nama }}">{{ $bantuan->nama }}</option>
+                        <option value="{{ $bantuan->id }}">{{ $bantuan->nama }}</option>
                     @endforeach
                 </select>
             </div> 
@@ -41,7 +41,7 @@
                 <div class="mb-5 grid gap-6 md:grid-cols-2">
                         <div>
                             <label for="provinsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
-                            <select name="provinsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select name="provinsi" id="provinsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="" selected disabled>Pilih Provinsi</option>
                                 @foreach ($provinsi as $item)
                                     <option value="{{ $item->code }}">{{ $item->name }}</option>
@@ -50,29 +50,20 @@
                         </div> 
                         <div>
                             <label for="kabupaten" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten</label>
-                            <select name="kabupaten" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="" selected disabled>Pilih Kabupaten</option>
-                                @foreach ($kabupaten as $item)
-                                    <option value="{{ $item->code }}">{{ $item->name }}</option>
-                                @endforeach
+                            <select name="kabupaten" id="kabupaten" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="" selected disabled>Pilih Provinsi terlebih dahulu</option>
                             </select>
                         </div> 
                         <div>
                             <label for="kecamatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
-                            <select name="kecamatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="" selected disabled>Pilih Kecamatan</option>
-                                @foreach ($kecamatan as $item)
-                                    <option value="{{ $item->code }}">{{ $item->name }}</option>
-                                @endforeach
+                            <select name="kecamatan" id="kecamatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="" selected disabled>Pilih Kabupaten terlebih dahulu</option>
                             </select>
                         </div> 
                         <div>
                             <label for="kalurahan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kalurahan</label>
-                            <select name="kalurahan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="" selected disabled>Pilih Kalurahan</option>
-                                @foreach ($kalurahan as $item)
-                                    <option value="{{ $item->code }}">{{ $item->name }}</option>
-                                @endforeach
+                            <select name="kalurahan" id="kalurahan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="" selected disabled>Pilih Kecamatan terlebih dahulu</option>
                             </select>
                         </div>
                 </div>
@@ -98,6 +89,47 @@
     </div>
 </div>
 
-    
-
 @endsection
+
+
+@push('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+    $('#provinsi').change(function () {
+        let provinsiID = $(this).val();
+        $('#kabupaten').html('<option selected disabled>Loading...</option>');
+        $.get('/get-kabupaten/' + provinsiID, function (data) {
+            let options = '<option selected disabled>Pilih Kabupaten</option>';
+            data.forEach(item => {
+                options += `<option value="${item.code}">${item.name}</option>`;
+            });
+            $('#kabupaten').html(options);
+        });
+    });
+
+    $('#kabupaten').change(function () {
+        let kabupatenID = $(this).val();
+        $('#kecamatan').html('<option selected disabled>Loading...</option>');
+        $.get('/get-kecamatan/' + kabupatenID, function (data) {
+            let options = '<option selected disabled>Pilih Kecamatan</option>';
+            data.forEach(item => {
+                options += `<option value="${item.code}">${item.name}</option>`;
+            });
+            $('#kecamatan').html(options);
+        });
+    });
+
+    $('#kecamatan').change(function () {
+        let kecamatanID = $(this).val();
+        $('#kalurahan').html('<option selected disabled>Loading...</option>');
+        $.get('/get-kalurahan/' + kecamatanID, function (data) {
+            let options = '<option selected disabled>Pilih Kalurahan</option>';
+            data.forEach(item => {
+                options += `<option value="${item.code}">${item.name}</option>`;
+            });
+            $('#kalurahan').html(options);
+        });
+    });
+</script>
+@endpush

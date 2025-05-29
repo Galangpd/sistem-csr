@@ -78,6 +78,15 @@ class MasyarakatController extends Controller
     
     }
 
+    public function detailPerusahaan($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('id', $id)->first();
+
+
+         return view('masyarakat.detailPerusahaan', compact('perusahaan', 'user'));
+    }
+
     public function profileMatching()
     {
         $user = Auth::user();
@@ -100,10 +109,10 @@ class MasyarakatController extends Controller
             $total_skor = $skor_bidang_usaha + $skor_jenis_bantuan + $skor_wilayah;
 
             $hasil[] = [
+                'id_perusahaan' => $perusahaan->id,
                 'logo' => $perusahaan->logo,
                 'nama_perusahaan' => $perusahaan->nama_perusahaan,
                 'bidang_usaha' => $perusahaan->bidang_usaha,
-                'jenis_bantuan' => $perusahaan->jenis_bantuan,
                 'alamat' => $perusahaan->alamat,
                 'total_skor' => $total_skor,
             ];

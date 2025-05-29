@@ -2,8 +2,9 @@
 @section('konten')
 
 <div class="p-4 md:mt-0">
-    <div class="md:flex md:justify-between">
+    <div>
         <h1 class="font-bold font-blue-500 text-xl md:text-md lg:text-2xl text-black">Penilaian Kelompok Masyarakat</h1>
+         <a href="{{ route('dashboard.perusahaan') }}" class="button-custom text-white bg-blue-600 hover:bg-blue-700"><svg viewBox="0 0 1024 1024" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#ffffff" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path><path fill="#ffffff" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path></g></svg> Kembali</a>
     </div>
 </div>
 

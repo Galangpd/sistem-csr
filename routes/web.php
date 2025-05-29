@@ -34,6 +34,7 @@ Route::middleware(['auth', 'role:masyarakat'])->group(function () {
     Route::get('/setting/masyarakat', [SettingController::class, 'masyarakat'])->name('setting.masyarakat');
     Route::put('/setting/masyarakat/profile', [MasyarakatController::class, 'updateProfile'])->name('update.setting.masyarakat');
     Route::put('/setting/masyarakat/user', [SettingController::class, 'updateUser'])->name('update.user.masyarakat');
+    Route::get('/dashboard/masyarakat/detail/{id}', [MasyarakatController::class, 'detailPerusahaan'])->name('detail.perusahaan');
 });
 
 Route::middleware(['auth','role:perusahaan'])->group(function () {

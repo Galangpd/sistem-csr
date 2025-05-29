@@ -20,7 +20,7 @@
                         onclick="toggleDropdown()">
                         <div class="px-4 py-3 flex items-center text-slate-500" role="none">
                             <p class="text-sm text-gray-900 w-36 truncate" role="none">
-                                test@email.com
+                                {{ Auth::user()->username }}
                             </p>
                             <div class="mx-2">
                                 <i class="fa-solid fa-angle-down transform transition-transform duration-300 ease-in-out"
@@ -32,20 +32,12 @@
                         id="dropdown-user">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-gray-900" role="none">
-                                test
-                            </p>
-                            <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                                test@email.com
+                               {{ Auth::user()->username }}
                             </p>
                         </div>
                         <ul class="py-1" role="none">
-                            <!-- <li>
-                                <a href=""
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Guest</a>
-                            </li> -->
                             <li>
-                                <a href="/" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
+                                <a href="{{ route('auth.logout') }}" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"
                                     role="menuitem">Sign out</a>
                             </li>
                         </ul>

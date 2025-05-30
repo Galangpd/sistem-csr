@@ -1,5 +1,5 @@
-<aside id="logo-sidebar"
-    class="fixed bg-white md:w-[250px] h-screen rounded-xl shadow-lg border border-gray-300 z-10 md:m-4 md:h-[calc(100vh-2rem)] flex flex-col justify-between transition-transform -translate-x-full sm:translate-x-0"
+<aside id="default-sidebar"
+    class="fixed top-0 left-0 z-40 bg-white md:w-[250px] h-screen rounded-xl shadow-lg border border-gray-300 md:m-4 md:h-[calc(100vh-2rem)] flex flex-col justify-between transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar">
     <div class="py-6 ml-4">
         <a href="/" class="flex flex-col justify-start space-x-3 rtl:space-x-reverse">
@@ -32,7 +32,7 @@
             
         </ul>
     </div>
-    <div class="m-4 flex-col justify-start items-center text-center hidden md:flex">
+    <div class="m-4 flex-col justify-start items-center text-center md:flex">
         <p class="font-primary text-sm text-slate-800 w-full truncate">{{ Auth::user()->username }}</p>
         <a href="{{ route('auth.logout') }}"
             class="w-fit items-center text-slate-500 hover:text-red-600 gap-3 mt-2 font-medium rounded-lg text-sm px-4 py-2 text-center transition-all transform duration-200 ease-in-out"

@@ -2,7 +2,7 @@
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
-                <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
+                <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
                     type="button"
                     class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
                     <span class="sr-only">Open sidebar</span>
@@ -15,10 +15,9 @@
                 </button>
             </div>
             <div class="flex items-center">
-                <div class="flex items-center ms-3">
                     <button type="button" aria-expanded="false" data-dropdown-toggle="dropdown-user"
-                        onclick="toggleDropdown()">
-                        <div class="px-4 py-3 flex items-center text-slate-500" role="none">
+                        onclick="toggleDropdown()" class="bg-white rounded shadow">
+                        <div class="py-3 flex items-center text-slate-500" role="none">
                             <p class="text-sm text-gray-900 w-36 truncate" role="none">
                                 {{ Auth::user()->username }}
                             </p>
@@ -28,7 +27,7 @@
                             </div>
                         </div>
                     </button>
-                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
+                    <div class="w-1/2 z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
                         id="dropdown-user">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-gray-900" role="none">
@@ -42,7 +41,6 @@
                             </li>
                         </ul>
                     </div>
-                </div>
             </div>
         </div>
     </div>

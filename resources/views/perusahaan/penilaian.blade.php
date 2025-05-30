@@ -23,7 +23,7 @@
             @endforeach
         </div>
 
-        <hr class="mb-5">
+        <hr class="h-px my-8 bg-gray-300 border-0 dark:bg-gray-700">
 
         <label for="bidang-usaha" class="block px-5 mb-2 text-lg font-semibold text-gray-900 dark:text-white">Jenis Bantuan</label>
         <div class="mb-3 px-5"><span class="text-sm"><i>Urutkan berdasarkan prioritas</i></span></div>
@@ -33,7 +33,7 @@
             @endforeach
         </div>
 
-        <hr class="mb-5">
+        <hr class="h-px my-8 bg-gray-300 border-0 dark:bg-gray-700">
 
         <label for="lokasi" class="block px-5 mb-2 text-lg font-semibold text-gray-900 dark:text-white">Lokasi</label>
         <div class="mb-5 px-5 grid gap-6 md:grid-cols-2">
@@ -67,7 +67,7 @@
         </div>
 
         <div class="mb-5 px-5">
-            <button type="submit" class="inline-flex w-auto text-center items-center gap-3 mt-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-4 py-2 me-2 mb-2">Submit</button>
+            <button type="submit" class="button-custom">Submit</button>
 
         </div>
     </form>

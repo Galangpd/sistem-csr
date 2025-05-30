@@ -14,11 +14,18 @@ use Illuminate\Support\Facades\Storage;
 
 class MasyarakatController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
         $user = Auth::user();
-        $data = $this->profileMatching();
+        $data = collect($this->profileMatching());
+        $keyword = $request->search;
+
+        if ($request->search) {
+        $data = $data->filter(function ($item) use ($keyword) {
+            return stripos($item['nama_perusahaan'], $keyword) !== false;
+        });
+        }
     
         return view('masyarakat.index', compact('data', 'user'));
     }

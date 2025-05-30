@@ -6,6 +6,7 @@ export default {
         "./resources/**/*.vue",
         "node_modules/preline/dist/*.js",
         './node_modules/@fortawesome/fontawesome-free/**/*.{js,css}',
+        './node_modules/flowbite/**/*.js',
     ],
     theme: {
         fontFamily: {

@@ -21,21 +21,27 @@ use Laravolt\Indonesia\Models\Village;
 
 class PerusahaanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-
         $user = Auth::user();
         $perusahaan = Perusahaan::where('user_id', $user->id)->firstOrFail();
-        
+        $keyword = $request->search;
+
         $hasPreference = ProfilePreference::where('id_perusahaan', $perusahaan->id)->exists();
-        
+
         if (!$hasPreference) {
             return redirect()->route('penilaian.perusahaan');
-        } else {
-            $dataMasyarakat = $this->profileMatching();
-            return view('perusahaan.index', compact('dataMasyarakat', 'user'));
         }
-    
+
+        $dataMasyarakat = collect($this->profileMatching());
+
+        if ($keyword) {
+            $dataMasyarakat = $dataMasyarakat->filter(function ($item) use ($keyword) {
+                return stripos($item['nama_masyarakat'], $keyword) !== false;
+            });
+        }
+
+        return view('perusahaan.index', compact('dataMasyarakat', 'user', 'keyword'));
     }
 
     public function updateProfile(Request $request){

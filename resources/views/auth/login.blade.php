@@ -51,14 +51,14 @@
 
                         <div class="mt-4">
                             <label for="" class="text-sm text-slate-400">Username</label>
-                            <input required placeholder="Username..." name="username"
-                                class=" text-gray-700 focus:outline-none focus:shadow-outline  border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                            <input required placeholder="Masukkan Username" name="username"
+                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 type="text" />
                         </div>
                         <div class="mt-4">
                             <label for="" class="text-sm text-slate-400">Password</label>
-                            <input required placeholder="Password..." name="password"
-                                class=" text-gray-700 focus:outline-none focus:shadow-outline  border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                            <input required placeholder="Masukkan Password" name="password"
+                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 type="password" />
                         </div>
                         <div class="mt-8">

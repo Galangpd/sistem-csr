@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BidangUsaha;
 use App\Models\JenisBantuan;
+use App\Models\Kriteria;
 use App\Models\User;
 use App\Models\Masyarakat;
 use App\Models\Perusahaan;
@@ -91,27 +92,33 @@ class PerusahaanController extends Controller
 
     public function showPenilaian ()
     {
-
         $user = Auth::user();
         $perusahaan = Perusahaan::where('user_id', $user->id)->firstOrFail();
-        $hasPreference = ProfilePreference::where('id_perusahaan', $perusahaan->id)->exists();
-        $provinsi = Province::all();
-        $bidang_usaha = BidangUsaha::all();
-        $jenis_bantuan = JenisBantuan::all();
+        $preference = ProfilePreference::where('id_perusahaan', $perusahaan->id)->first();
+        $kabupaten = City::where('province_code', $preference->provinsi)->get();
+        $kecamatan = District::where('city_code', $preference->kabupaten)->get();
+        $kalurahan = Village::where('district_code', $preference->kecamatan)->get();
+        $isEdit = $preference !== null;
 
-
-        if (!$hasPreference) {
-            $isEdit =  false;
-            return view('perusahaan.penilaian', compact('user', 'isEdit', 'provinsi', 'bidang_usaha', 'jenis_bantuan'));
-        }
-    
-        $isEdit =  true;
-        return view('perusahaan.penilaian', compact('user', 'hasPreference', 'isEdit', 'provinsi', 'bidang_usaha', 'jenis_bantuan'));
+        return view('perusahaan.penilaian', [
+            'user' => $user,
+            'isEdit' => $isEdit,
+            'provinsi' => Province::all(),
+            'bidang_usaha' => BidangUsaha::all(),
+            'jenis_bantuan' => JenisBantuan::all(),
+            'kriteria' => Kriteria::all(),
+            'preference' => $preference,
+            'kabupaten' => $kabupaten,
+            'kecamatan' => $kecamatan,
+            'kalurahan' => $kalurahan,
+        ]);
     }
 
     public function storePreference(Request $request){
 
+        // dd($request->all());
         $request->validate([
+            'prioritas_kriteria' => 'required|array|min:1',
             'jenis_bantuan' => 'required|array',
             'bidang_usaha' => 'required|array',
             'provinsi' => 'required|string',
@@ -119,6 +126,12 @@ class PerusahaanController extends Controller
             'kecamatan' => 'required|string',
             'kalurahan' => 'required|string',
         ]);
+
+        $allKriteria = Kriteria::pluck('id')->toArray();
+
+        $coreFactors = array_map('intval', $request->input('prioritas_kriteria', []));
+
+        $secondaryFactors = array_values(array_diff($allKriteria, $coreFactors));
 
          try {
             DB::beginTransaction();
@@ -126,23 +139,25 @@ class PerusahaanController extends Controller
             $user = Auth::user();
             $perusahaan = Perusahaan::where('user_id', $user->id)->first();
 
-        ProfilePreference::create([
-                'id_perusahaan' => $perusahaan->id,
-                'bidang_usaha' => $request->bidang_usaha,
-                'jenis_bantuan' => $request->jenis_bantuan,
-                'provinsi' => $request->provinsi,
-                'kabupaten' => $request->kabupaten,
-                'kecamatan' => $request->kecamatan,
-                'kalurahan' => $request->kalurahan,
-            ]);
+            ProfilePreference::create([
+                    'id_perusahaan' => $perusahaan->id,
+                    'core_factor' => $coreFactors,
+                    'secondary_factor' => $secondaryFactors,
+                    'bidang_usaha' => array_map('intval', $request->bidang_usaha),
+                    'jenis_bantuan' => array_map('intval', $request->jenis_bantuan),
+                    'provinsi' => $request->provinsi,
+                    'kabupaten' => $request->kabupaten,
+                    'kecamatan' => $request->kecamatan,
+                    'kalurahan' => $request->kalurahan,
+                ]);
 
             DB::commit();
         
         return redirect()->route('dashboard.perusahaan')->with('success', 'Preferensi berhasil disimpan.');
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Gagal update profil: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui profil.' . $e->getMessage());
+            Log::error('Gagal menambahkan preferensi: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan preferensi.' . $e->getMessage());
         }
     }
 
@@ -150,6 +165,7 @@ class PerusahaanController extends Controller
     {
         // dd($request->all());
         $request->validate([
+            'prioritas_kriteria' => 'required|array|min:1',
             'jenis_bantuan' => 'required|array',
             'bidang_usaha' => 'required|array',
             'provinsi' => 'required|string',
@@ -157,6 +173,12 @@ class PerusahaanController extends Controller
             'kecamatan' => 'required|string',
             'kalurahan' => 'required|string',
         ]);
+
+        $allKriteria = Kriteria::pluck('id')->toArray();
+
+        $coreFactors = array_map('intval', $request->input('prioritas_kriteria', []));
+
+        $secondaryFactors = array_values(array_diff($allKriteria, $coreFactors));
 
         try {
             DB::beginTransaction();
@@ -167,8 +189,10 @@ class PerusahaanController extends Controller
 
             $preference->update([
                     'id_perusahaan' => $perusahaan->id,
-                    'bidang_usaha' => $request->bidang_usaha,
-                    'jenis_bantuan' => $request->jenis_bantuan,
+                    'core_factor' => $coreFactors,
+                    'secondary_factor' => $secondaryFactors,
+                    'bidang_usaha' => array_map('intval', $request->bidang_usaha),
+                    'jenis_bantuan' => array_map('intval', $request->jenis_bantuan),
                     'provinsi' => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
                     'kecamatan' => $request->kecamatan,
@@ -205,14 +229,30 @@ class PerusahaanController extends Controller
         $masyarakatList = Masyarakat::all();
         $preference = ProfilePreference::where('id_perusahaan', $perusahaan->id)->firstOrFail();
 
+        $coreFactors = $preference->core_factor ?? [];
+        $secondaryFactors = $preference->secondary_factor ?? [];
+        
         $hasil = [];
 
         foreach ($masyarakatList as $masyarakat) {
+             $coreScore = 0;
+            $secondaryScore = 0;
+            
             // Kriteria Bidang Usaha
-            $result_bidang = $this->hitungGap($preference->bidang_usaha, $masyarakat->bidang_usaha);
+            $scoreBidang = $this->hitungGap($preference->bidang_usaha, $masyarakat->bidang_usaha);
+            if (in_array(1, $coreFactors)) {
+                $coreScore += $scoreBidang;
+            } elseif (in_array(1, $secondaryFactors)) {
+                $secondaryScore += $scoreBidang;
+            }
 
             // Kriteria Jenis Bantuan
-            $result_jenis = $this->hitungGap($preference->jenis_bantuan, $masyarakat->jenis_bantuan);
+            $scoreJenis = $this->hitungGap($preference->jenis_bantuan, $masyarakat->jenis_bantuan);
+            if (in_array(2, $coreFactors)) {
+                $coreScore += $scoreJenis;
+            } elseif (in_array(2, $secondaryFactors)) {
+                $secondaryScore += $scoreJenis;
+            }
 
             // Kriteria Lokasi
             $gap_lokasi = $this->hitungGapLokasi(
@@ -229,13 +269,18 @@ class PerusahaanController extends Controller
                     'provinsi' => $masyarakat->provinsi,
                 ]
             );
-
-            $skor_lokasi = $this->konversiNilaiGap($gap_lokasi);
+            $scoreLokasi = $this->konversiNilaiGap($gap_lokasi);
+            if (in_array(3, $coreFactors)) {
+                $coreScore += $scoreLokasi;
+            } elseif (in_array(3, $secondaryFactors)) {
+                $secondaryScore += $scoreLokasi;
+            }
 
             // Total skor akhir
-            $total_skor = $result_bidang['skor'] + $result_jenis['skor'] + $skor_lokasi;
-            $bidangUsaha = BidangUsaha::where('id', $masyarakat->bidang_usaha)->first();
-            $jenisBantuan = JenisBantuan::where('id', $masyarakat->jenis_bantuan)->first();
+            $totalScore = ($coreScore * 0.6) + ($secondaryScore * 0.4);
+
+            $bidangUsaha = BidangUsaha::find($masyarakat->bidang_usaha);
+            $jenisBantuan = JenisBantuan::find($masyarakat->jenis_bantuan);
 
             $hasil[] = [
                 'id_masyarakat' => $masyarakat->id,
@@ -244,7 +289,7 @@ class PerusahaanController extends Controller
                 'bidang_usaha' => $bidangUsaha->nama,
                 'jenis_bantuan' => $jenisBantuan->nama,
                 'alamat' => $masyarakat->alamat,
-                'total_skor' => $total_skor,
+                'total_skor' => $totalScore,
             ];
         }
 
@@ -269,10 +314,9 @@ class PerusahaanController extends Controller
 
         $gap = abs($bobot_ideal - $bobot_masyarakat);
 
-        return [
-            'gap' => $gap,
-            'skor' => $this->konversiNilaiGap($gap),
-        ];
+        $skor = $this->konversiNilaiGap($gap);
+
+        return $skor;
     }
 
     private function hitungGapLokasi($lokasiPerusahaan, $lokasiMasyarakat)

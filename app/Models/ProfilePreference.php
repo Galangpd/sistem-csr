@@ -16,6 +16,8 @@ class ProfilePreference extends Model
 
     protected $fillable = [
         'id_perusahaan',
+        'core_factor',
+        'secondary_factor',
         'bidang_usaha',
         'jenis_bantuan',
         'provinsi',
@@ -25,6 +27,8 @@ class ProfilePreference extends Model
     ];
 
     protected $casts = [
+        'core_factor' => 'array',
+        'secondary_factor' => 'array',
         'bidang_usaha' => 'array',
         'jenis_bantuan' => 'array',
     ];

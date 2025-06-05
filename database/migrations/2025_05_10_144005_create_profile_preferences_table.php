@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_perusahaan')->nullable()->constrained('perusahaans')->onDelete('cascade');
 
+            $table->json('core_factor');
+            $table->json('secondary_factor');
             $table->json('bidang_usaha');
             $table->json('jenis_bantuan');
 

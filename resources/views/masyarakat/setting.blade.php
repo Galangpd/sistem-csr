@@ -176,6 +176,8 @@
     $('#provinsi').change(function () {
         let provinsiID = $(this).val();
         $('#kabupaten').html('<option selected disabled>Loading...</option>');
+        $('#kecamatan').html('<option selected disabled>Loading...</option>');
+        $('#kalurahan').html('<option selected disabled>Loading...</option>');
         $.get('/get-kabupaten/' + provinsiID, function (data) {
             let options = '<option selected disabled>Pilih Kabupaten</option>';
             data.forEach(item => {
@@ -190,12 +192,14 @@
     $('#kabupaten').change(function () {
         let kabupatenID = $(this).val();
         $('#kecamatan').html('<option selected disabled>Loading...</option>');
+        $('#kalurahan').html('<option selected disabled>Loading...</option>');
         $.get('/get-kecamatan/' + kabupatenID, function (data) {
             let options = '<option selected disabled>Pilih Kecamatan</option>';
             data.forEach(item => {
                 options += `<option value="${item.code}">${item.name}</option>`;
             });
             $('#kecamatan').html(options);
+            $('#kalurahan').html('<option selected disabled>Pilih Kecamatan terlebih dahulu</option>');
         });
     });
 

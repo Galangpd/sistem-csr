@@ -2,16 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Models\Kriteria;
 use App\Models\Perusahaan;
 use App\Models\BidangUsaha;
 use Illuminate\Support\Arr;
 use App\Models\JenisBantuan;
 use App\Models\ProfilePreference;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\Village;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
-use Laravolt\Indonesia\Models\Village;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProfilePreference>
@@ -22,6 +23,11 @@ class ProfilePreferenceFactory extends Factory
 
     public function definition(): array
     {
+
+        $allKriteria = Kriteria::inRandomOrder()->pluck('id')->toArray();
+
+        $core_factor = collect($allKriteria)->random(rand(1, 2))->toArray();
+        $secondary_factor = array_values(array_diff($allKriteria, $core_factor));
 
         $bidangUsaha = BidangUsaha::inRandomOrder()->pluck('id')->toArray();
 
@@ -34,6 +40,8 @@ class ProfilePreferenceFactory extends Factory
 
         return [
             'id_perusahaan' => Perusahaan::factory(),
+            'core_factor' => $core_factor,
+            'secondary_factor' => $secondary_factor,
             'bidang_usaha' => $bidangUsaha,
             'jenis_bantuan' => $jenisBantuan,
             'provinsi' => $provinsi->code,

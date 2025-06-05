@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             JenisBantuanSeeder::class,
             PerusahaanSeeder::class,
             MasyarakatSeeder::class,
+            KriteriaSeeder::class,
             ProfilePreferenceSeeder::class,
         ]);
     }

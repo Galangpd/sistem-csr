@@ -235,10 +235,10 @@ class PerusahaanController extends Controller
         $hasil = [];
 
         foreach ($masyarakatList as $masyarakat) {
-             $coreScore = 0;
+            $coreScore = 0;
             $secondaryScore = 0;
             
-            // Kriteria Bidang Usaha
+            // Kriteria bidang usaha
             $scoreBidang = $this->hitungGap($preference->bidang_usaha, $masyarakat->bidang_usaha);
             if (in_array(1, $coreFactors)) {
                 $coreScore += $scoreBidang;
@@ -246,7 +246,7 @@ class PerusahaanController extends Controller
                 $secondaryScore += $scoreBidang;
             }
 
-            // Kriteria Jenis Bantuan
+            // Kriteria jenis bantuan
             $scoreJenis = $this->hitungGap($preference->jenis_bantuan, $masyarakat->jenis_bantuan);
             if (in_array(2, $coreFactors)) {
                 $coreScore += $scoreJenis;
@@ -254,29 +254,15 @@ class PerusahaanController extends Controller
                 $secondaryScore += $scoreJenis;
             }
 
-            // Kriteria Lokasi
-            $gap_lokasi = $this->hitungGapLokasi(
-                [
-                    'kalurahan' => $perusahaan->kalurahan,
-                    'kecamatan' => $perusahaan->kecamatan,
-                    'kabupaten' => $perusahaan->kabupaten,
-                    'provinsi' => $perusahaan->provinsi,
-                ],
-                [
-                    'kalurahan' => $masyarakat->kalurahan,
-                    'kecamatan' => $masyarakat->kecamatan,
-                    'kabupaten' => $masyarakat->kabupaten,
-                    'provinsi' => $masyarakat->provinsi,
-                ]
-            );
-            $scoreLokasi = $this->konversiNilaiGap($gap_lokasi);
+            // Kriteria lokasi
+            $scoreLokasi = $this->hitungGapLokasi($perusahaan, $masyarakat);
             if (in_array(3, $coreFactors)) {
                 $coreScore += $scoreLokasi;
             } elseif (in_array(3, $secondaryFactors)) {
                 $secondaryScore += $scoreLokasi;
             }
 
-            // Total skor akhir
+            // Menghitung total score
             $totalScore = ($coreScore * 0.6) + ($secondaryScore * 0.4);
 
             $bidangUsaha = BidangUsaha::find($masyarakat->bidang_usaha);
@@ -319,25 +305,13 @@ class PerusahaanController extends Controller
         return $skor;
     }
 
-    private function hitungGapLokasi($lokasiPerusahaan, $lokasiMasyarakat)
+     private function hitungGapLokasi($perusahaan, $masyarakat): float
     {
-        if ($lokasiPerusahaan['kalurahan'] === $lokasiMasyarakat['kalurahan']) {
-            return 0;
-        }
-
-        if ($lokasiPerusahaan['kecamatan'] === $lokasiMasyarakat['kecamatan']) {
-            return 1;
-        }
-
-        if ($lokasiPerusahaan['kabupaten'] === $lokasiMasyarakat['kabupaten']) {
-            return 2;
-        }
-
-        if ($lokasiPerusahaan['provinsi'] === $lokasiMasyarakat['provinsi']) {
-            return 3;
-        }
-
-        return 4;
+        if ($perusahaan->kalurahan === $masyarakat->kalurahan) return $this->konversiNilaiGap(0);
+        if ($perusahaan->kecamatan === $masyarakat->kecamatan) return $this->konversiNilaiGap(1);
+        if ($perusahaan->kabupaten === $masyarakat->kabupaten) return $this->konversiNilaiGap(2);
+        if ($perusahaan->provinsi === $masyarakat->provinsi) return $this->konversiNilaiGap(3);
+        return $this->konversiNilaiGap(4);
     }
 
     private function konversiNilaiGap($gap)

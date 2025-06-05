@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Models\Masyarakat;
 use App\Models\Perusahaan;
@@ -53,45 +54,38 @@ class AuthenticationController extends Controller
         ));
     }
 
-    public function registerPerusahaan(Request $request)
+    public function registerPerusahaan(RegisterRequest $request)
     {
-        $request->validate([
-            'username' => 'required|string|unique:users,username',
-            'password' => 'required|string|min:6|confirmed',
-            'nama_perusahaan' => 'required|string',
-            'bidang_usaha' => 'nullable|string',
-        ]);
+        try {
+            DB::beginTransaction();
 
-        $user = User::create([
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'role' => 'perusahaan',
-        ]);
+            $user = User::create([
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'role' => 'perusahaan',
+            ]);
 
-        Perusahaan::create([
-            'user_id' => $user->id,
-            'nama_perusahaan' => $request->nama_perusahaan,
-            'bidang_usaha' => $request->bidang_usaha,
-            'alamat' => $request->alamat,
-        ]);
+            Perusahaan::create([
+                'user_id' => $user->id,
+                'nama_perusahaan' => $request->nama_perusahaan,
+                'bidang_usaha' => $request->bidang_usaha,
+                'alamat' => $request->alamat,
+            ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi perusahaan berhasil!');
+            DB::commit();
+
+            return redirect()->route('login')->with('success', 'Registrasi perusahaan berhasil!');
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Registrasi Gagal: ' . $e->getMessage());
+            dd("u");
+            return redirect()->back()->with('error', 'Registrasi Gagal: ' . $e->getMessage())->withInput();
+        }
     }
 
-    public function registerMasyarakat(Request $request)
+    public function registerMasyarakat(RegisterRequest $request)
     {
-        $request->validate([
-        'username' => 'required|string|unique:users,username',
-        'password' => 'required|string|min:6|confirmed',
-        'nama_masyarakat' => 'required|string',
-        'bidang_usaha' => 'required|string',
-        'jenis_bantuan' => 'required|string',
-        'alamat' => 'required|string',
-        'provinsi' => 'required|string',
-        'kabupaten' => 'required|string',
-        'kecamatan' => 'required|string',
-        'kalurahan' => 'required|string',
-        ]);
 
         try {
             DB::beginTransaction();
@@ -121,10 +115,8 @@ class AuthenticationController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Registrasi Gagal: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Registrasi Gagal: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Registrasi Gagal: ' . $e->getMessage())->withInput();
         }
-        
-
         
     }
 

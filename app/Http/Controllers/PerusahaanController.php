@@ -231,6 +231,8 @@ class PerusahaanController extends Controller
 
         $coreFactors = $preference->core_factor ?? [];
         $secondaryFactors = $preference->secondary_factor ?? [];
+        $bidangUsahaPref = $preference->bidang_usaha ?? [];
+        $jenisBantuanPref = $preference->jenis_bantuan ?? [];
         
         $hasil = [];
 
@@ -239,7 +241,7 @@ class PerusahaanController extends Controller
             $secondaryScore = 0;
             
             // Kriteria bidang usaha
-            $scoreBidang = $this->hitungGap($preference->bidang_usaha, $masyarakat->bidang_usaha);
+            $scoreBidang = $this->hitungGap($bidangUsahaPref, $masyarakat->bidang_usaha);
             if (in_array(1, $coreFactors)) {
                 $coreScore += $scoreBidang;
             } elseif (in_array(1, $secondaryFactors)) {
@@ -247,7 +249,7 @@ class PerusahaanController extends Controller
             }
 
             // Kriteria jenis bantuan
-            $scoreJenis = $this->hitungGap($preference->jenis_bantuan, $masyarakat->jenis_bantuan);
+            $scoreJenis = $this->hitungGap($jenisBantuanPref, $masyarakat->jenis_bantuan);
             if (in_array(2, $coreFactors)) {
                 $coreScore += $scoreJenis;
             } elseif (in_array(2, $secondaryFactors)) {
@@ -255,7 +257,7 @@ class PerusahaanController extends Controller
             }
 
             // Kriteria lokasi
-            $scoreLokasi = $this->hitungGapLokasi($perusahaan, $masyarakat);
+            $scoreLokasi = $this->hitungGapLokasi($preference, $masyarakat);
             if (in_array(3, $coreFactors)) {
                 $coreScore += $scoreLokasi;
             } elseif (in_array(3, $secondaryFactors)) {

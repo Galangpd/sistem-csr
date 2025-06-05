@@ -25,6 +25,9 @@
                     <label for="{{ $item->nama }}" class="w-full ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $item->nama }}</label>
                 </div>
             @endforeach
+            @error('prioritas_kriteria')
+                <div class="text-red-500 text-sm">{{ $message }}</div>
+            @enderror
         </div>
 
         <hr class="h-px my-8 bg-gray-300 border-0 dark:bg-gray-700">
@@ -36,6 +39,9 @@
             @foreach ($bidang_usaha as $item)
                 <div class="sortable-item" data-id="{{ $item->id }}"><span class="handle">⋮⋮</span>{{ $item->nama }}</div>
             @endforeach
+            @error('bidang_usaha')
+                <div class="text-red-500 text-sm">{{ $message }}</div>
+            @enderror
         </div>
 
         <hr class="h-px my-8 bg-gray-300 border-0 dark:bg-gray-700">
@@ -47,6 +53,9 @@
             @foreach ($jenis_bantuan as $item)
                 <div class="sortable-item" data-id="{{ $item->id }}"><span class="handle">⋮⋮</span>{{ $item->nama }}</div>
             @endforeach
+            @error('jenis_bantuan')
+                <div class="text-red-500 text-sm">{{ $message }}</div>
+            @enderror
         </div>
 
         <hr class="h-px my-8 bg-gray-300 border-0 dark:bg-gray-700">
@@ -62,6 +71,9 @@
                                 <option value="{{ $item->code }}" @if (isset($preference->provinsi) && $preference->provinsi == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
+                    @error('provinsi')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
                 </div> 
                 <div>
                     <label for="kabupaten" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten</label>
@@ -71,6 +83,9 @@
                                 <option value="{{ $item->code }}" @if (isset($preference->kabupaten) && $preference->kabupaten == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
+                    @error('kabupaten')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
                 </div> 
                 <div>
                     <label for="kecamatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
@@ -80,6 +95,9 @@
                                 <option value="{{ $item->code }}" @if (isset($preference->kecamatan) && $preference->kecamatan == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
+                    @error('kecamatan')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
                 </div> 
                 <div>
                     <label for="kalurahan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kalurahan</label>
@@ -89,6 +107,9 @@
                                 <option value="{{ $item->code }}" @if (isset($preference->kalurahan) && $preference->kalurahan == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
+                    @error('kalurahan')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
                 </div>
         </div>
 

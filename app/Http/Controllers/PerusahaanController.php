@@ -118,7 +118,7 @@ class PerusahaanController extends Controller
 
         // dd($request->all());
         $request->validate([
-            'prioritas_kriteria' => 'required|array|min:1',
+            'prioritas_kriteria' => 'required|array|min:1|max:2',
             'jenis_bantuan' => 'required|array',
             'bidang_usaha' => 'required|array',
             'provinsi' => 'required|string',
@@ -165,7 +165,7 @@ class PerusahaanController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'prioritas_kriteria' => 'required|array|min:1',
+            'prioritas_kriteria' => 'required|array|min:1|max:2',
             'jenis_bantuan' => 'required|array',
             'bidang_usaha' => 'required|array',
             'provinsi' => 'required|string',
@@ -203,7 +203,8 @@ class PerusahaanController extends Controller
             return redirect()->route('dashboard.perusahaan')->with('success', 'Preferensi berhasil diperbarui.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withErrors('Gagal memperbarui preferensi: ' . $e->getMessage());
+            Log::error('Gagal menambahkan preferensi: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal memperbarui preferensi: ' . $e->getMessage());
         }
     }
 

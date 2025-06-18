@@ -10,7 +10,7 @@
 <div class="card">
     <div class="max-w-full mx-auto mb-5">
         <div class="mb-5">
-            <a href="{{ route('penilaian.perusahaan') }}" class="w-full flex justify-center rounded-lg mx-auto bg-blue-600 hover:bg-blue-700 text-center p-3 mb-3 text-white">Pengaturan Penilaian</a>
+            <a href="{{ route('editPenilaian.perusahaan') }}" class="w-full flex justify-center rounded-lg mx-auto bg-blue-600 hover:bg-blue-700 text-center p-3 mb-3 text-white">Pengaturan Penilaian</a>
         </div>
 
         <form method="GET" action="{{ route('dashboard.perusahaan') }}">   

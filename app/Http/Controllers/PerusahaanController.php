@@ -93,16 +93,27 @@ class PerusahaanController extends Controller
     public function showPenilaian ()
     {
         $user = Auth::user();
+
+        return view('perusahaan.penilaian', [
+            'user' => $user,
+            'provinsi' => Province::all(),
+            'bidang_usaha' => BidangUsaha::all(),
+            'jenis_bantuan' => JenisBantuan::all(),
+            'kriteria' => Kriteria::all(),
+        ]);
+    }
+
+    public function editPenilaian ()
+    {
+        $user = Auth::user();
         $perusahaan = Perusahaan::where('user_id', $user->id)->firstOrFail();
         $preference = ProfilePreference::where('id_perusahaan', $perusahaan->id)->first();
         $kabupaten = City::where('province_code', $preference->provinsi)->get();
         $kecamatan = District::where('city_code', $preference->kabupaten)->get();
         $kalurahan = Village::where('district_code', $preference->kecamatan)->get();
-        $isEdit = $preference !== null;
 
-        return view('perusahaan.penilaian', [
+        return view('perusahaan.editPenilaian', [
             'user' => $user,
-            'isEdit' => $isEdit,
             'provinsi' => Province::all(),
             'bidang_usaha' => BidangUsaha::all(),
             'jenis_bantuan' => JenisBantuan::all(),
@@ -114,9 +125,8 @@ class PerusahaanController extends Controller
         ]);
     }
 
-    public function storePreference(Request $request){
-
-        // dd($request->all());
+    public function storePreference(Request $request)
+    {
         $request->validate([
             'prioritas_kriteria' => 'required|array|min:1|max:2',
             'jenis_bantuan' => 'required|array',
@@ -163,7 +173,6 @@ class PerusahaanController extends Controller
 
     public function updatePreference(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'prioritas_kriteria' => 'required|array|min:1|max:2',
             'jenis_bantuan' => 'required|array',

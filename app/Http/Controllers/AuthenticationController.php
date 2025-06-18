@@ -54,8 +54,16 @@ class AuthenticationController extends Controller
         ));
     }
 
-    public function registerPerusahaan(RegisterRequest $request)
+    public function registerPerusahaan(Request $request)
     {
+        $request->validate([
+            'username' => 'required|string|unique:users,username',
+            'password' => 'required|string|min:6|confirmed',
+            'nama_perusahaan' => 'required|string',
+            'bidang_usaha' => 'required|string',
+            'alamat' => 'required|string',
+        ]);
+
         try {
             DB::beginTransaction();
 
@@ -79,13 +87,23 @@ class AuthenticationController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Registrasi Gagal: ' . $e->getMessage());
-            dd("u");
-            return redirect()->back()->with('error', 'Registrasi Gagal: ' . $e->getMessage())->withInput();
         }
     }
 
-    public function registerMasyarakat(RegisterRequest $request)
+    public function registerMasyarakat(Request $request)
     {
+        $request->validate([
+            'username' => 'required|string|unique:users,username',
+            'password' => 'required|string|min:6|confirmed',
+            'nama_masyarakat' => 'required|string',
+            'bidang_usaha' => 'required|string',
+            'jenis_bantuan' => 'required|string',
+            'alamat' => 'required|string',
+            'provinsi' => 'required|string',
+            'kabupaten' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kalurahan' => 'required|string',
+        ]);
 
         try {
             DB::beginTransaction();
@@ -115,7 +133,6 @@ class AuthenticationController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Registrasi Gagal: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Registrasi Gagal: ' . $e->getMessage())->withInput();
         }
         
     }

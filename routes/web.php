@@ -40,6 +40,7 @@ Route::middleware(['auth', 'role:masyarakat'])->group(function () {
 Route::middleware(['auth','role:perusahaan'])->group(function () {
     Route::get('/dashboard/perusahaan', [PerusahaanController::class, 'index'])->name('dashboard.perusahaan');
     Route::get('/dashboard/perusahaan/penilaian', [PerusahaanController::class, 'showPenilaian'])->name('penilaian.perusahaan');
+    Route::get('/dashboard/perusahaan/edit-penilaian', [PerusahaanController::class, 'editPenilaian'])->name('editPenilaian.perusahaan');
     Route::post('/dashboard/perusahaan/penilaian', [PerusahaanController::class, 'storePreference'])->name('store.penilaian.perusahaan');
     Route::put('/dashboard/perusahaan/penilaian', [PerusahaanController::class, 'updatePreference'])->name('update.penilaian.perusahaan');
     Route::get('/setting/perusahaan', [SettingController::class, 'perusahaan'])->name('setting.perusahaan');

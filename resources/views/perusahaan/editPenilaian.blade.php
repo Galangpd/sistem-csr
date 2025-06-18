@@ -24,14 +24,17 @@
 
 <div class="card border border-gray-300 shadow-lg">
     
-    <form id="sortForm" method="POST" action="{{ route('store.penilaian.perusahaan') }}">
+    <form id="sortForm" method="POST" action="{{ route('update.penilaian.perusahaan') }}">
         @csrf
+        @method('PUT')
+        
         <label for="prioritas_kriteria" class="block px-5 mb-2 text-lg font-semibold text-gray-900 dark:text-white">Kriteria Prioritas</label>
         <div class="mb-3 px-5"><span class="text-sm"><i>Pilih satu atau lebih berdasarkan prioritas perusahaan</i></span></div>
         <div class="px-5">
             @foreach ($kriteria as $item)
                 <div class="w-full flex items-center mb-2 border border-gray-300 rounded-md px-2 py-3">
-                    <input id="{{ $item->nama }}" name="prioritas_kriteria[]" type="checkbox" value="{{ $item->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input id="{{ $item->nama }}" name="prioritas_kriteria[]" type="checkbox" value="{{ $item->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                     @if(in_array($item->id, $preference->core_factor)) checked @endif>
                     <label for="{{ $item->nama }}" class="w-full ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $item->nama }}</label>
                 </div>
             @endforeach
@@ -78,7 +81,7 @@
                     <select name="provinsi" id="provinsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="" selected disabled>Pilih Provinsi</option>
                             @foreach ($provinsi as $item)
-                                <option value="{{ $item->code }}">{{ $item->name }}</option>
+                                <option value="{{ $item->code }}" @if (isset($preference->provinsi) && $preference->provinsi == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
                     @error('provinsi')
@@ -89,6 +92,9 @@
                     <label for="kabupaten" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten</label>
                     <select name="kabupaten" id="kabupaten" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="" selected disabled>Pilih Provinsi terlebih dahulu</option>
+                            @foreach ($kabupaten as $item)
+                                <option value="{{ $item->code }}" @if (isset($preference->kabupaten) && $preference->kabupaten == $item->code) selected @endif>{{ $item->name }}</option>
+                            @endforeach
                     </select>
                     @error('kabupaten')
                         <div class="text-red-500 text-sm">{{ $message }}</div>
@@ -98,6 +104,9 @@
                     <label for="kecamatan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kecamatan</label>
                     <select name="kecamatan" id="kecamatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="" selected disabled>Pilih Kabupaten terlebih dahulu</option>
+                            @foreach ($kecamatan as $item)
+                                <option value="{{ $item->code }}" @if (isset($preference->kecamatan) && $preference->kecamatan == $item->code) selected @endif>{{ $item->name }}</option>
+                            @endforeach
                     </select>
                     @error('kecamatan')
                         <div class="text-red-500 text-sm">{{ $message }}</div>
@@ -107,6 +116,9 @@
                     <label for="kalurahan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kalurahan</label>
                     <select name="kalurahan" id="kalurahan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="" selected disabled>Pilih Kecamatan terlebih dahulu</option>
+                            @foreach ($kalurahan as $item)
+                                <option value="{{ $item->code }}" @if (isset($preference->kalurahan) && $preference->kalurahan == $item->code) selected @endif>{{ $item->name }}</option>
+                            @endforeach
                     </select>
                     @error('kalurahan')
                         <div class="text-red-500 text-sm">{{ $message }}</div>

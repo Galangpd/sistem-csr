@@ -28,58 +28,62 @@
     </div>
 
     <div class="min-h-screen flex items-center justify-center">
-        <div class="flex md:w-4/6 w-full bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="md:w-3/6">
-                <form action="{{ route('auth.login') }}" method="post">
-                    @csrf
-                    <div class="w-full md:px-20 px-10 py-16">
-                        <div class="mb-10 flex items-center space-x-3 rtl:space-x-reverse ">
-                            <img src="{{ asset('asset/logo-oia.svg') }}" class="h-5" alt="Flowbite Logo">
-                            <div class="">
-                                <div class="self-center text-slate-600 text-lg font-extrabold">CSR.</div>
-                            </div>
-                        </div>
-                        <div class="mb-10 flex items-center space-x-3 rtl:space-x-reverse ">
-                            <div class="">
-                                <div class="self-center text-slate-600 text-3xl font-normal">Sign In
-                                </div>
-                                <div class="self-center text-slate-600 text-sm">to your account</div>
-                            </div>
-                        </div>
-
-                        @include('template.alert')
-
-                        <div class="mt-4">
-                            <label for="" class="text-sm text-slate-400">Username</label>
-                            <input required placeholder="Masukkan Username" name="username"
-                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                type="text" />
-                        </div>
-                        <div class="mt-4">
-                            <label for="" class="text-sm text-slate-400">Password</label>
-                            <input required placeholder="Masukkan Password" name="password"
-                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                type="password" />
-                        </div>
-                        <div class="mt-8">
-                            <button
-                                type="submit"
-                                class="button-custom w-full justify-center">
-                                Submit</button>
-                            </form>
-                            <a href="/pilih-pengguna"
-                                class="w-full flex justify-center text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 shadow-lg shadow-gray-500/50 dark:shadow-lg dark:shadow-gray-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center me-2 mb-2">
-                                Register</a>
-                        </div>
+    <div class="flex md:w-4/6 w-full bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="w-full md:w-3/6 py-16">
+            <form action="{{ route('auth.login') }}" method="POST">
+                @csrf
+                <div class="w-full md:px-20 px-10">
+                    <div class="mb-10 flex items-center space-x-3">
+                        <img src="{{ asset('asset/logo-oia.svg') }}" class="h-5" alt="Logo CSR">
+                        <div class="self-center text-slate-600 text-lg font-extrabold">CSR.</div>
                     </div>
-            </div>
-            <div class="md:w-3/6 hidden md:block">
-                <div class="bg-primary/30 h-full flex items-center">
-                        <img src="{{ asset('asset/hand.png') }}" class="h-64 w-full object-cover"/>
+                    
+                    <div class="mb-10">
+                        <div class="text-slate-600 text-3xl font-normal">Sign In</div>
+                        <div class="text-slate-600 text-sm">to your account</div>
+                    </div>
+
+                    @include('template.alert')
+
+                    <div class="mt-4">
+                        <label for="username" class="text-sm text-slate-400">Username</label>
+                        <input id="username" name="username" required placeholder="Masukkan Username"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="text" />
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="password" class="text-sm text-slate-400">Password</label>
+                        <input id="password" name="password" required placeholder="Masukkan Password"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            type="password" />
+                    </div>
+
+                    <div class="mt-8">
+                        <button type="submit"
+                            class="button-custom w-full justify-center">
+                            Submit
+                        </button>
+                    </div>
                 </div>
+            </form>
+
+            <div class="px-10 md:px-20">
+                <a href="/pilih-pengguna"
+                    class="w-full flex justify-center text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 shadow-lg shadow-gray-500/50 dark:shadow-lg dark:shadow-gray-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                    Register
+                </a>
+            </div>
+        </div>
+
+        <div class="md:w-3/6 hidden md:block">
+            <div class="bg-primary/30 h-full flex items-center">
+                <img src="{{ asset('asset/hand.png') }}" class="h-64 w-full object-cover" alt="Hand Image" />
             </div>
         </div>
     </div>
+</div>
+
 </body>
 
 </html>

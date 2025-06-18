@@ -17,7 +17,6 @@ class JenisBantuanSeeder extends Seeder
             ['nama' => 'Uang Tunai'],
             ['nama' => 'Sarana dan Prasarana'],
             ['nama' => 'Peralatan Usaha'],
-            ['nama' => 'Pelatihan'],
         ];
 
         JenisBantuan::insert($jenisbantuan);

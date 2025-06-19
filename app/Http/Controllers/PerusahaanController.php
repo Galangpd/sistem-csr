@@ -238,6 +238,7 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('user_id', $user->id)->firstOrFail();
         $masyarakatList = Masyarakat::all();
         $preference = ProfilePreference::where('id_perusahaan', $perusahaan->id)->firstOrFail();
+        $kriteriaMap = Kriteria::pluck('id', 'nama')->toArray();
 
         $coreFactors = $preference->core_factor ?? [];
         $secondaryFactors = $preference->secondary_factor ?? [];
@@ -252,30 +253,33 @@ class PerusahaanController extends Controller
             
             // Kriteria bidang usaha
             $scoreBidang = $this->hitungGap($bidangUsahaPref, $masyarakat->bidang_usaha);
-            if (in_array(1, $coreFactors)) {
+            if (in_array($kriteriaMap['Bidang Usaha'], $coreFactors)) {
                 $coreScore += $scoreBidang;
-            } elseif (in_array(1, $secondaryFactors)) {
+            } elseif (in_array($kriteriaMap['Bidang Usaha'], $secondaryFactors)) {
                 $secondaryScore += $scoreBidang;
             }
 
             // Kriteria jenis bantuan
             $scoreJenis = $this->hitungGap($jenisBantuanPref, $masyarakat->jenis_bantuan);
-            if (in_array(2, $coreFactors)) {
+            if (in_array($kriteriaMap['Jenis Bantuan'], $coreFactors)) {
                 $coreScore += $scoreJenis;
-            } elseif (in_array(2, $secondaryFactors)) {
+            } elseif (in_array($kriteriaMap['Jenis Bantuan'], $secondaryFactors)) {
                 $secondaryScore += $scoreJenis;
             }
 
             // Kriteria lokasi
             $scoreLokasi = $this->hitungGapLokasi($preference, $masyarakat);
-            if (in_array(3, $coreFactors)) {
+            if (in_array($kriteriaMap['Lokasi'], $coreFactors)) {
                 $coreScore += $scoreLokasi;
-            } elseif (in_array(3, $secondaryFactors)) {
+            } elseif (in_array($kriteriaMap['Lokasi'], $secondaryFactors)) {
                 $secondaryScore += $scoreLokasi;
             }
 
             // Menghitung total score
-            $totalScore = ($coreScore * 0.6) + ($secondaryScore * 0.4);
+            $coreAvg = count($coreFactors) ? ($coreScore / count($coreFactors)) : 0;
+            $secondaryAvg = count($secondaryFactors) ? ($secondaryScore / count($secondaryFactors)) : 0;
+
+            $totalScore = ($coreAvg * 0.6) + ($secondaryAvg * 0.4);
 
             $bidangUsaha = BidangUsaha::find($masyarakat->bidang_usaha);
             $jenisBantuan = JenisBantuan::find($masyarakat->jenis_bantuan);
@@ -310,7 +314,7 @@ class PerusahaanController extends Controller
         $bobot_ideal = $bobot_prioritas[$prioritas[0]] ?? 0;
         $bobot_masyarakat = $bobot_prioritas[$nilaiMasyarakat] ?? 0;
 
-        $gap = abs($bobot_ideal - $bobot_masyarakat);
+        $gap = $bobot_ideal - $bobot_masyarakat;
 
         $skor = $this->konversiNilaiGap($gap);
 
@@ -331,9 +335,13 @@ class PerusahaanController extends Controller
         $skorMap = [
             0 => 5,
             1 => 4.5,
+            -1 => 4,
             2 => 3.5,
+            -2 => 3,
             3 => 2.5,
+            -3 => 2,
             4 => 1.5,
+            -4 => 1,
         ];
 
         return $skorMap[$gap] ?? 0;

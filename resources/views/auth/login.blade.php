@@ -30,13 +30,13 @@
     <div class="min-h-screen flex items-center justify-center">
     <div class="flex md:w-4/6 w-full bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="w-full md:w-3/6 py-16">
-            <form action="{{ route('auth.login') }}" method="POST">
-                @csrf
                 <div class="w-full md:px-20 px-10">
+                    <a href="/">
                     <div class="mb-10 flex items-center space-x-3">
-                        <img src="{{ asset('asset/logo-oia.svg') }}" class="h-5" alt="Logo CSR">
-                        <div class="self-center text-slate-600 text-lg font-extrabold">CSR.</div>
-                    </div>
+                            <img src="{{ asset('asset/logo-oia.svg') }}" class="h-7" alt="Logo CSR">
+                            <div class="self-center text-slate-600 text-3xl font-extrabold">CSR</div>
+                        </div>
+                    </a>
                     
                     <div class="mb-10">
                         <div class="text-slate-600 text-3xl font-normal">Sign In</div>
@@ -45,6 +45,8 @@
 
                     @include('template.alert')
 
+                <form action="{{ route('auth.login') }}" method="POST">
+                @csrf
                     <div class="mt-4">
                         <label for="username" class="text-sm text-slate-400">Username</label>
                         <input id="username" name="username" required placeholder="Masukkan Username"
@@ -77,7 +79,7 @@
         </div>
 
         <div class="md:w-3/6 hidden md:block">
-            <div class="bg-primary/30 h-full flex items-center">
+            <div class="bg-primary/30 h-full px-8 flex items-center">
                 <img src="{{ asset('asset/hand.png') }}" class="h-64 w-full object-cover" alt="Hand Image" />
             </div>
         </div>

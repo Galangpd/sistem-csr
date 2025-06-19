@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kriteria;
 use App\Models\Masyarakat;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
@@ -99,6 +100,7 @@ class MasyarakatController extends Controller
         $user = Auth::user();
         $masyarakat = Masyarakat::where('user_id', $user->id)->firstOrFail();
         $perusahaans = Perusahaan::all();
+        $kriteriaMap = Kriteria::pluck('id', 'nama')->toArray();
 
         $hasil = [];
 
@@ -114,30 +116,33 @@ class MasyarakatController extends Controller
 
             // Kriteria bidang usaha
             $scoreBidang = $this->hitungGap($preference->bidang_usaha, $masyarakat->bidang_usaha);
-            if (in_array(1, $coreFactors)) {
+            if (in_array($kriteriaMap['Bidang Usaha'], $coreFactors)) {
                 $coreScore += $scoreBidang;
-            } elseif (in_array(1, $secondaryFactors)) {
+            } elseif (in_array($kriteriaMap['Bidang Usaha'], $secondaryFactors)) {
                 $secondaryScore += $scoreBidang;
             }
             
             // Kriteria jenis bantuan
             $scoreBantuan = $this->hitungGap($preference->jenis_bantuan, $masyarakat->jenis_bantuan);
-            if (in_array(2, $coreFactors)) {
+            if (in_array($kriteriaMap['Jenis Bantuan'], $coreFactors)) {
                 $coreScore += $scoreBantuan;
-            } elseif (in_array(2, $secondaryFactors)) {
+            } elseif (in_array($kriteriaMap['Jenis Bantuan'], $secondaryFactors)) {
                 $secondaryScore += $scoreBantuan;
             }
 
             // Kriteria lokasi
             $scoreLokasi = $this->hitungGapLokasi($preference, $masyarakat);
-            if (in_array(3, $coreFactors)) {
+            if (in_array($kriteriaMap['Lokasi'], $coreFactors)) {
                 $coreScore += $scoreLokasi;
-            } elseif (in_array(3, $secondaryFactors)) {
+            } elseif (in_array($kriteriaMap['Lokasi'], $secondaryFactors)) {
                 $secondaryScore += $scoreLokasi;
             }
 
             // Menghitung total score
-            $totalScore = ($coreScore * 0.6) + ($secondaryScore * 0.4);
+            $coreAvg = count($coreFactors) ? ($coreScore / count($coreFactors)) : 0;
+            $secondaryAvg = count($secondaryFactors) ? ($secondaryScore / count($secondaryFactors)) : 0;
+
+            $totalScore = ($coreAvg * 0.6) + ($secondaryAvg * 0.4);
 
             $hasil[] = [
                 'id_perusahaan' => $perusahaan->id,
@@ -155,10 +160,11 @@ class MasyarakatController extends Controller
         return $hasil;
     }
 
-    private function hitungGap(array $prioritas, string $nilai): float
+    private function hitungGap(array $prioritas, $nilai)
     {
         $bobot_prioritas = [];
         $total = count($prioritas);
+
         foreach ($prioritas as $i => $item) {
             $bobot_prioritas[$item] = $total - $i;
         }
@@ -166,7 +172,7 @@ class MasyarakatController extends Controller
         $bobot_ideal = $bobot_prioritas[$prioritas[0]] ?? 0;
         $bobot_nilai = $bobot_prioritas[$nilai] ?? 0;
 
-        $gap = abs($bobot_ideal - $bobot_nilai);
+        $gap = $bobot_ideal - $bobot_nilai;
 
         $skor = $this->konversiNilaiGap($gap);
 
@@ -187,9 +193,13 @@ class MasyarakatController extends Controller
         $skorMap = [
             0 => 5,
             1 => 4.5,
+            -1 => 4,
             2 => 3.5,
+            -2 => 3,
             3 => 2.5,
+            -3 => 2,
             4 => 1.5,
+            -4 => 1,
         ];
 
         return $skorMap[$gap] ?? 0;

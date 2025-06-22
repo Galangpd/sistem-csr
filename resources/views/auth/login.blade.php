@@ -34,7 +34,7 @@
                     <a href="/">
                     <div class="mb-10 flex items-center space-x-3">
                             <img src="{{ asset('asset/logo-oia.svg') }}" class="h-7" alt="Logo CSR">
-                            <div class="self-center text-slate-600 text-3xl font-extrabold">CSR</div>
+                            <div class="self-center text-[#003973] text-3xl font-extrabold">CSR</div>
                         </div>
                     </a>
                     

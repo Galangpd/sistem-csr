@@ -8,10 +8,7 @@
 
     <link rel="shortcut icon" href="{{ asset('asset/logo-oia.svg') }}" type="image/x-icon">
 
-    <title>Sistem CSR</title>
-
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])    
+    <title>Sistem CSR</title>  
 
 </head>
 

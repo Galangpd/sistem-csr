@@ -23,14 +23,15 @@
                 style="background: radial-gradient(circle, rgba(59, 131, 246, 0.474) 0%, rgba(59,130,246,0) 70%);">
             </div>
             <div class="fixed -bottom-48 -right-48 w-[500px] h-[500px] rounded-full"
-                style="background: radial-gradient(circle, rgba(255, 132, 0, 0.507) 0%, rgba(59,130,246,0) 70%);"></div>
+                style="background: radial-gradient(circle, rgba(255, 196, 0, 0.729) 0%, rgba(59,130,246,0) 70%);"></div>
         </div>
     </div>
 
     <div class="min-h-screen flex items-center justify-center">
-    <div class="flex md:w-4/6 w-full bg-white rounded-xl shadow-lg overflow-hidden">
+    <div class="flex lg:w-5/6 xl:w-4/6 w-full bg-white rounded-xl shadow-lg overflow-hidden">
+        
         <div class="w-full md:w-3/6 py-16">
-                <div class="w-full md:px-20 px-10">
+                <div class="w-full lg:px-15 px-10">
                     <a href="/">
                     <div class="mb-10 flex items-center space-x-3">
                             <img src="{{ asset('asset/logo-oia.svg') }}" class="h-7" alt="Logo CSR">
@@ -41,6 +42,12 @@
                     <div class="mb-10">
                         <div class="text-slate-600 text-3xl font-normal">Sign In</div>
                         <div class="text-slate-600 text-sm">to your account</div>
+                    </div>
+
+                    <div class="w-full md:hidden">
+                        <div class="bg-primary/30 h-full px-8 flex items-center">
+                            <img src="{{ asset('asset/hand2.png') }}" class="h-64 w-full object-cover" alt="Hand Image" />
+                        </div>
                     </div>
 
                     @include('template.alert')
@@ -70,7 +77,7 @@
                 </div>
             </form>
 
-            <div class="px-10 md:px-20">
+            <div class="px-10 lg:px-15">
                 <a href="/pilih-pengguna"
                     class="w-full flex justify-center text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 shadow-lg shadow-gray-500/50 dark:shadow-lg dark:shadow-gray-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center">
                     Register
@@ -80,7 +87,7 @@
 
         <div class="md:w-3/6 hidden md:block">
             <div class="bg-primary/30 h-full px-8 flex items-center">
-                <img src="{{ asset('asset/hand.png') }}" class="h-64 w-full object-cover" alt="Hand Image" />
+                <img src="{{ asset('asset/hand2.png') }}" class="h-64 w-full object-cover" alt="Hand Image" />
             </div>
         </div>
     </div>

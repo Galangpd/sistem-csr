@@ -15,7 +15,7 @@ class BidangUsahaSeeder extends Seeder
     {
         $bidangUsaha = [
             ['nama' => 'Pendidikan'],
-            ['nama' => 'Kesehatan'],
+            ['nama' => 'Kewirausahaan'],
             ['nama' => 'Sosial'],
             ['nama' => 'Lingkungan'],
             ['nama' => 'Agama'],

@@ -2,7 +2,7 @@
 
 @section('konten')
 
-<div class="relative max-w-screen mx-auto px-4 h-full py-10 flex flex-col justify-center items-center bg-white shadow-lg">
+<div class="relative max-w-screen mx-auto px-4 h-full py-10 flex flex-col justify-center items-center bg-gray-100 shadow-lg">
     <h1 class="mb-8 text-3xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
         Register Kelompok Masyarakat
     </h1>
@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <div class="w-full md:max-w-1/2 rounded-lg p-4 border border-gray-300 shadow-lg">
+    <div class="w-full md:max-w-1/2 rounded-lg p-4 bg-white border border-gray-300 shadow-lg">
         
         <form action="{{ route('register.masyarakat') }}" method="POST">
             @csrf

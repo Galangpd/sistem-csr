@@ -2,7 +2,8 @@
 
 @section('konten')
 
-<div class="max-w-full md:-mt-10 mx-auto px-4 h-screen flex flex-col justify-center items-center bg-white shadow-lg">
+<div class="max-w-full md:-mt-10 mx-auto px-4 h-screen flex flex-col justify-center items-center bg-gray-100 shadow-lg">
+    
     <h1 class="mb-8 text-3xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
         Siapakah anda?
     </h1>

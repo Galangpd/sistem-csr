@@ -111,12 +111,24 @@ class PerusahaanController extends Controller
         $kabupaten = City::where('province_code', $preference->provinsi)->get();
         $kecamatan = District::where('city_code', $preference->kabupaten)->get();
         $kalurahan = Village::where('district_code', $preference->kecamatan)->get();
+        $bidang_usaha = BidangUsaha::all();
+        $jenis_bantuan = JenisBantuan::all();
+
+        $urutan_bidang = $preference->bidang_usaha;
+        $urutan_jenis = $preference->jenis_bantuan;
+
+        $bidang_usaha_sorted = $bidang_usaha->sortBy(function ($item) use ($urutan_bidang) {
+            return array_search($item->id, $urutan_bidang);
+        });
+        $jenis_bantuan_sorted = $jenis_bantuan->sortBy(function ($item) use ($urutan_jenis) {
+            return array_search($item->id, $urutan_jenis);
+        });
 
         return view('perusahaan.editPenilaian', [
             'user' => $user,
             'provinsi' => Province::all(),
-            'bidang_usaha' => BidangUsaha::all(),
-            'jenis_bantuan' => JenisBantuan::all(),
+            'bidang_usaha' => $bidang_usaha_sorted,
+            'jenis_bantuan' => $jenis_bantuan_sorted,
             'kriteria' => Kriteria::all(),
             'preference' => $preference,
             'kabupaten' => $kabupaten,

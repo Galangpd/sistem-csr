@@ -1,5 +1,5 @@
 <aside id="default-sidebar"
-    class="fixed top-0 left-0 z-40 bg-white md:w-[250px] h-screen rounded-xl shadow-lg border border-gray-300 md:m-4 md:h-[calc(100vh-2rem)] flex flex-col justify-between transition-transform -translate-x-full sm:translate-x-0"
+    class="fixed top-0 left-0 z-40 bg-white lg:w-[250px] h-screen rounded-xl shadow-lg border border-gray-300 md:m-4 md:h-[calc(100vh-2rem)] md:flex md:flex-col justify-between transition-transform -translate-x-full md:translate-x-0"
     aria-label="Sidebar">
     <div class="py-6 ml-4">
         <a href="/" class="flex flex-col justify-start space-x-3 rtl:space-x-reverse">

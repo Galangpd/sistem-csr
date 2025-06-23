@@ -21,7 +21,7 @@
     @include('template.sidebar')
     @include('sweetalert2::index')
 
-    <div class="p-4 md:ml-[260px] h-max mt-10 md:mt-0">
+    <div class="p-2 md:ml-[190px] lg:p-4 lg:ml-[260px] h-max mt-10 md:mt-0">
         @yield('konten')
     </div>
 

@@ -3,7 +3,7 @@
 @section('konten')
 
 <div class="relative max-w-screen mx-auto px-4 h-full py-10 flex flex-col justify-center items-center bg-gray-100 shadow-lg">
-    <h1 class="mb-8 text-3xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
+    <h1 class="mb-8 mt-20 text-3xl font-bold tracking-tight text-gray-900 dark:text-white text-center">
         Register Kelompok Masyarakat
     </h1>
 

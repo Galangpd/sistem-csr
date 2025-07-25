@@ -18,6 +18,10 @@ Route::get('/pilih-pengguna', function () {
 Route::get('/login', [AuthenticationController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthenticationController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthenticationController::class, 'logout'])->name('auth.logout');
+Route::get('/resetPassword', [AuthenticationController::class, 'resetPassword'])->name('auth.resetPassword');
+Route::post('/forgot-password', [AuthenticationController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [AuthenticationController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [AuthenticationController::class, 'reset'])->name('password.update');
 
 Route::get('/registerPerusahaan', [AuthenticationController::class, 'showRegisterPerusahaan'])->name('auth.register-perusahaan');
 Route::get('/registerMasyarakat', [AuthenticationController::class, 'showRegisterMasyarakat'])->name('auth.register-masyarakat');

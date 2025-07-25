@@ -66,9 +66,12 @@
                         <input id="password" name="password" required placeholder="Masukkan Password"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             type="password" />
+                        <div class="mt-2">
+                            <a href="{{ route('auth.resetPassword') }}" class="w-full text-slate-400 font-normal text-sm hover:underline">Lupa Password?</a>
+                        </div>
                     </div>
 
-                    <div class="mt-8">
+                    <div class="mt-6">
                         <button type="submit"
                             class="button-custom w-full justify-center">
                             Submit

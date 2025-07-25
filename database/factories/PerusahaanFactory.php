@@ -14,10 +14,12 @@ class PerusahaanFactory extends Factory
     {
         return [
             'user_id' => User::factory()->state(['role' => 'perusahaan']),
-            'nama_perusahaan' => $this->faker->company(),
+            'nama_perusahaan' => fake()->company(),
             'logo' => 'asset/user.png',
-            'bidang_usaha' => $this->faker->catchPhrase(),
-            'alamat' => $this->faker->address(),
+            'bidang_usaha' => fake()->catchPhrase(),
+            'alamat' => fake()->address(),
+            'email' => fake()->unique()->safeEmail(),
+            'telepon' => fake()->phoneNumber(),
         ];
     }
 }

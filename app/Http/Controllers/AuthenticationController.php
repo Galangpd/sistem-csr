@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Models\Masyarakat;
 use App\Models\Perusahaan;
@@ -14,9 +13,12 @@ use Illuminate\Support\Facades\Log;
 use Laravolt\Indonesia\Models\City;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 use Laravolt\Indonesia\Models\Village;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
 
 class AuthenticationController extends Controller
 {
@@ -62,6 +64,8 @@ class AuthenticationController extends Controller
             'nama_perusahaan' => 'required|string',
             'bidang_usaha' => 'required|string',
             'alamat' => 'required|string',
+            'telepon' => 'required|string',
+            'email' => 'required|string|unique:users,email',
         ]);
 
         try {
@@ -69,6 +73,7 @@ class AuthenticationController extends Controller
 
             $user = User::create([
                 'username' => $request->username,
+                'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => 'perusahaan',
             ]);
@@ -78,6 +83,8 @@ class AuthenticationController extends Controller
                 'nama_perusahaan' => $request->nama_perusahaan,
                 'bidang_usaha' => $request->bidang_usaha,
                 'alamat' => $request->alamat,
+                'telepon' => $request->telepon,
+                'email' => $request->email,
             ]);
 
             DB::commit();
@@ -103,6 +110,8 @@ class AuthenticationController extends Controller
             'kabupaten' => 'required|string',
             'kecamatan' => 'required|string',
             'kalurahan' => 'required|string',
+            'telepon' => 'required|string',
+            'email' => 'required|string|unique:users,email',
         ]);
 
         try {
@@ -110,6 +119,7 @@ class AuthenticationController extends Controller
 
             $user = User::create([
                 'username' => $request->username,
+                'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => 'masyarakat',
             ]);
@@ -124,6 +134,8 @@ class AuthenticationController extends Controller
                 'kabupaten' => $request->kabupaten,
                 'kecamatan' => $request->kecamatan,
                 'kalurahan' => $request->kalurahan,
+                'telepon' => $request->telepon,
+                'email' => $request->email,
             ]);
 
             DB::commit();
@@ -171,5 +183,57 @@ class AuthenticationController extends Controller
 
         return redirect()->route('login');
     }
+
+    public function resetPassword()
+    {
+        return view('auth.resetPassword');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with('status', __($status))
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function showResetForm(Request $request, $token)
+    {
+        return view('auth.newPassword', ['token' => $token, 'email' => $request->email]);
+    }
+
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        if ($status === Password::PASSWORD_RESET) {
+            return redirect()->route('login')->with('success', 'Password berhasil diperbarui.');
+        } else {
+            return back()->withErrors(['email' => __($status)]);
+        }
+    }
+
     
 }

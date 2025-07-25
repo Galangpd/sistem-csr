@@ -34,6 +34,8 @@ class MasyarakatFactory extends Factory
             'bidang_usaha' => $bidang_usaha,
             'jenis_bantuan' => $jenisbantuan,
             'alamat' => $this->faker->address(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'telepon' => $this->faker->phoneNumber(),
             'provinsi' => $provinsi->code,
             'kabupaten' => $kabupaten->code,
             'kecamatan' => $kecamatan->code,

@@ -46,6 +46,7 @@ class SettingController extends Controller
     public function updateUser(Request $request){
         $request->validate([
         'username' => 'required|string|unique:users,username,' . Auth::id(),
+        'email' => 'required|email|unique:users,email,' . Auth::id(),
         'password' => 'nullable|string|min:6|confirmed',
         ]);
 
@@ -56,6 +57,7 @@ class SettingController extends Controller
 
             $updateData = [
                 'username' => $request->username,
+                'email' => $request->email,
             ];
 
             if ($request->filled('password')) {
@@ -63,6 +65,22 @@ class SettingController extends Controller
             }
 
             $user->update($updateData);
+
+            if ($user->role === 'perusahaan') {
+                $perusahaan = $user->perusahaan;
+                if ($perusahaan) {
+                    $perusahaan->update([
+                        'email' => $request->email,
+                    ]);
+                }
+            } elseif ($user->role === 'masyarakat') {
+                $masyarakat = $user->masyarakat;
+                if ($masyarakat) {
+                    $masyarakat->update([
+                        'email' => $request->email,
+                    ]);
+                }
+            }
 
             DB::commit();
 

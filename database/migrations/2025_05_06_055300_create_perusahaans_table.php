@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('logo')->nullable();;
             $table->string('bidang_usaha');
             $table->string('alamat');
+            $table->string('email');
+            $table->string('telepon');
             $table->timestamps();
         });
     }

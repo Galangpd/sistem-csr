@@ -51,6 +51,7 @@ class PerusahaanController extends Controller
             'nama' => 'required|string|max:255',
             'bidang_usaha' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
+            'telepon' => 'required|string|max:16',
         ]);
     
         try {
@@ -77,6 +78,7 @@ class PerusahaanController extends Controller
                 'nama_perusahaan' => $request->nama,
                 'bidang_usaha' => $request->bidang_usaha,
                 'alamat' => $request->alamat,
+                'telepon' => $request->telepon,
             ]);
 
             DB::commit();

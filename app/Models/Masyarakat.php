@@ -20,6 +20,8 @@ class Masyarakat extends Model
         'bidang_usaha',
         'jenis_bantuan',
         'alamat',
+        'email',
+        'telepon',
         'provinsi', 
         'kabupaten', 
         'kecamatan', 

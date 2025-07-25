@@ -108,6 +108,13 @@
                             </div>
                     </div>
                 </div> 
+
+                <div class="mb-6">
+                    <label for="telepon" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No Telepon</label>
+                    <input type="text" 
+                    value="{{ old('telepon', $data->telepon ?? '') }}" 
+                    name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="088765678" required />
+                </div> 
                 <button type="submit" class="button-custom">Perbarui</button>
     </form>
           </div>
@@ -124,6 +131,12 @@
                 <input type="text" 
                 value="{{ old('username', $user->username ?? '') }}" 
                 name="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ptsentosa" required />
+            </div> 
+            <div class="mb-6">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input type="text" 
+                value="{{ old('email', $user->email ?? '') }}" 
+                name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="test@gmail.com" required />
             </div> 
             <div class="mb-6">
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>

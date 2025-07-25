@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('bidang_usaha')->constrained();
             $table->foreignId('jenis_bantuan')->constrained();
             $table->string('alamat');
+            $table->string('email');
+            $table->string('telepon');
             $table->char('provinsi', 2);
             $table->char('kabupaten', 4);
             $table->char('kecamatan', 7);

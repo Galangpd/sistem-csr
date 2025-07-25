@@ -15,6 +15,8 @@ class Perusahaan extends Model
         'logo',
         'bidang_usaha',
         'alamat',
+        'email',
+        'telepon',
     ];
 
     public function user() {

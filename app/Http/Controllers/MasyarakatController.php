@@ -42,6 +42,7 @@ class MasyarakatController extends Controller
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'kalurahan' => 'required',
+            'telepon' => 'required|string|max:16',
         ]);
     
         try {
@@ -73,6 +74,7 @@ class MasyarakatController extends Controller
                 'kecamatan' => $request->kecamatan,
                 'kabupaten' => $request->kabupaten,
                 'provinsi' => $request->provinsi,
+                'telepon' => $request->telepon,
             ]);
 
             DB::commit();

@@ -34,6 +34,7 @@
     </div>
     <div class="m-4 flex-col justify-start items-center text-center md:flex">
         <p class="font-primary text-sm text-slate-800 w-full truncate">{{ Auth::user()->username }}</p>
+        <p class="font-semibold text-sm text-slate-800 w-full truncate">{{ Auth::user()->email }}</p>
         <a href="{{ route('auth.logout') }}"
             class="w-fit items-center text-slate-500 hover:text-red-600 gap-3 mt-2 font-medium rounded-lg text-sm px-4 py-2 text-center transition-all transform duration-200 ease-in-out"
             role="menuitem">

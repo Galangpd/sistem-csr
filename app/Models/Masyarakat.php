@@ -17,15 +17,15 @@ class Masyarakat extends Model
         'user_id', 
         'nama_masyarakat', 
         'logo',
-        'bidang_usaha',
-        'jenis_bantuan',
+        'bidang_usaha_id',
+        'jenis_bantuan_id',
         'alamat',
         'email',
         'telepon',
-        'provinsi', 
-        'kabupaten', 
-        'kecamatan', 
-        'kalurahan', 
+        'provinsi_id', 
+        'kabupaten_id', 
+        'kecamatan_id', 
+        'kalurahan_id', 
     ];
 
     public function user() {
@@ -33,22 +33,22 @@ class Masyarakat extends Model
     }
 
     public function bidang_usaha(){
-        return $this->belongsTo(BidangUsaha::class, 'bidang_usaha');
+        return $this->belongsTo(BidangUsaha::class, 'bidang_usaha_id', 'id');
     }
 
     public function jenis_bantuan(){
-        return $this->belongsTo(JenisBantuan::class, 'jenis_bantuan');
+        return $this->belongsTo(JenisBantuan::class, 'jenis_bantuan_id', 'id');
     }
     public function provinsi(){
-        return $this->belongsTo(Province::class, 'provinsi');
+        return $this->belongsTo(Province::class, 'provinsi_id', 'code');
     }
     public function kabupaten(){
-        return $this->belongsTo(City::class, 'kabupaten');
+        return $this->belongsTo(City::class, 'kabupaten_id', 'code');
     }
     public function kecamatan(){
-        return $this->belongsTo(District::class, 'kecamatan');
+        return $this->belongsTo(District::class, 'kecamatan_id', 'code');
     }
     public function kalurahan(){
-        return $this->belongsTo(Village::class, 'kalurahan');
+        return $this->belongsTo(Village::class, 'kalurahan_id', 'code');
     }
 }

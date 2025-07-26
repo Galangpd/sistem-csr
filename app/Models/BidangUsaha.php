@@ -9,7 +9,14 @@ class BidangUsaha extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'nama',
     ];
+
+    public function masyarakat()
+    {
+        return $this->hasMany(Masyarakat::class, 'bidang_usaha');
+    }
 }

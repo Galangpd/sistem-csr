@@ -30,7 +30,7 @@
     }
 
     .side-menu {
-        @apply flex justify-between text-gray-600 font-normal items-center w-full px-5 py-3 bg-white hover:bg-blue-400 rounded-lg hover:text-slate-600 transition duration-300;
+        @apply flex justify-between text-gray-600 font-normal items-center w-full px-5 py-3 bg-white hover:bg-blue-600 rounded-lg hover:text-slate-600 transition duration-300;
     }
 
     .side-menu-active {

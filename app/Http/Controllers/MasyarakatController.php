@@ -67,13 +67,13 @@ class MasyarakatController extends Controller
     
             $masyarakat->update([
                 'nama_masyarakat' => $request->nama,
-                'bidang_usaha' => $request->bidang_usaha,
-                'jenis_bantuan' => $request->jenis_bantuan,
+                'bidang_usaha_id' => $request->bidang_usaha,
+                'jenis_bantuan_id' => $request->jenis_bantuan,
                 'alamat' => $request->alamat,
-                'kalurahan' => $request->kalurahan,
-                'kecamatan' => $request->kecamatan,
-                'kabupaten' => $request->kabupaten,
-                'provinsi' => $request->provinsi,
+                'kalurahan_id' => $request->kalurahan,
+                'kecamatan_id' => $request->kecamatan,
+                'kabupaten_id' => $request->kabupaten,
+                'provinsi_id' => $request->provinsi,
                 'telepon' => $request->telepon,
             ]);
 
@@ -91,7 +91,7 @@ class MasyarakatController extends Controller
     public function detailPerusahaan($id)
     {
         $user = Auth::user();
-        $perusahaan = Perusahaan::where('id', $id)->first();
+        $perusahaan = Perusahaan::findOrFail($id);
 
 
          return view('masyarakat.detailPerusahaan', compact('perusahaan', 'user'));
@@ -117,7 +117,7 @@ class MasyarakatController extends Controller
             if (!$preference) continue;
 
             // Kriteria bidang usaha
-            $scoreBidang = $this->hitungGap($preference->bidang_usaha, $masyarakat->bidang_usaha);
+            $scoreBidang = $this->hitungGap($preference->bidang_usaha, $masyarakat->bidang_usaha_id);
             if (in_array($kriteriaMap['Bidang Usaha'], $coreFactors)) {
                 $coreScore += $scoreBidang;
             } elseif (in_array($kriteriaMap['Bidang Usaha'], $secondaryFactors)) {
@@ -125,7 +125,7 @@ class MasyarakatController extends Controller
             }
             
             // Kriteria jenis bantuan
-            $scoreBantuan = $this->hitungGap($preference->jenis_bantuan, $masyarakat->jenis_bantuan);
+            $scoreBantuan = $this->hitungGap($preference->jenis_bantuan, $masyarakat->jenis_bantuan_id);
             if (in_array($kriteriaMap['Jenis Bantuan'], $coreFactors)) {
                 $coreScore += $scoreBantuan;
             } elseif (in_array($kriteriaMap['Jenis Bantuan'], $secondaryFactors)) {
@@ -183,10 +183,10 @@ class MasyarakatController extends Controller
 
     private function hitungGapLokasi($perusahaan, $masyarakat): float
     {
-        if ($perusahaan->kalurahan === $masyarakat->kalurahan) return $this->konversiNilaiGap(0);
-        if ($perusahaan->kecamatan === $masyarakat->kecamatan) return $this->konversiNilaiGap(1);
-        if ($perusahaan->kabupaten === $masyarakat->kabupaten) return $this->konversiNilaiGap(2);
-        if ($perusahaan->provinsi === $masyarakat->provinsi) return $this->konversiNilaiGap(3);
+        if ($perusahaan->kalurahan_id === $masyarakat->kalurahan_id) return $this->konversiNilaiGap(0);
+        if ($perusahaan->kecamatan_id === $masyarakat->kecamatan_id) return $this->konversiNilaiGap(1);
+        if ($perusahaan->kabupaten_id === $masyarakat->kabupaten_id) return $this->konversiNilaiGap(2);
+        if ($perusahaan->provinsi_id === $masyarakat->provinsi_id) return $this->konversiNilaiGap(3);
         return $this->konversiNilaiGap(4);
     }
 

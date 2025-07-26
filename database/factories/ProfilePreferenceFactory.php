@@ -44,10 +44,10 @@ class ProfilePreferenceFactory extends Factory
             'secondary_factor' => $secondary_factor,
             'bidang_usaha' => $bidangUsaha,
             'jenis_bantuan' => $jenisBantuan,
-            'provinsi' => $provinsi->code,
-            'kabupaten' => $kabupaten->code,
-            'kecamatan' => $kecamatan->code,
-            'kalurahan' => $kalurahan->code,
+            'provinsi_id' => $provinsi->code,
+            'kabupaten_id' => $kabupaten->code,
+            'kecamatan_id' => $kecamatan->code,
+            'kalurahan_id' => $kalurahan->code,
         ];
     }
 }

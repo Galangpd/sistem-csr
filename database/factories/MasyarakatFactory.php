@@ -31,15 +31,15 @@ class MasyarakatFactory extends Factory
             'user_id' => User::factory()->state(['role' => 'masyarakat']),
             'nama_masyarakat' => $this->faker->company(),
             'logo' => 'asset/user.png',
-            'bidang_usaha' => $bidang_usaha,
-            'jenis_bantuan' => $jenisbantuan,
+            'bidang_usaha_id' => $bidang_usaha,
+            'jenis_bantuan_id' => $jenisbantuan,
             'alamat' => $this->faker->address(),
             'email' => $this->faker->unique()->safeEmail(),
             'telepon' => $this->faker->phoneNumber(),
-            'provinsi' => $provinsi->code,
-            'kabupaten' => $kabupaten->code,
-            'kecamatan' => $kecamatan->code,
-            'kalurahan' => $kalurahan->code,
+            'provinsi_id' => $provinsi->code,
+            'kabupaten_id' => $kabupaten->code,
+            'kecamatan_id' => $kecamatan->code,
+            'kalurahan_id' => $kalurahan->code,
         ];
     }
 }

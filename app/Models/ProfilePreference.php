@@ -20,10 +20,10 @@ class ProfilePreference extends Model
         'secondary_factor',
         'bidang_usaha',
         'jenis_bantuan',
-        'provinsi',
-        'kabupaten',
-        'kecamatan',
-        'kalurahan',
+        'provinsi_id',
+        'kabupaten_id',
+        'kecamatan_id',
+        'kalurahan_id',
     ];
 
     protected $casts = [
@@ -39,15 +39,15 @@ class ProfilePreference extends Model
     }
 
     public function provinsi(){
-        return $this->belongsTo(Province::class, 'provinsi');
+        return $this->belongsTo(Province::class, 'provinsi_id', 'code');
     }
     public function kabupaten(){
-        return $this->belongsTo(City::class, 'kabupaten');
+        return $this->belongsTo(City::class, 'kabupaten_id', 'code');
     }
     public function kecamatan(){
-        return $this->belongsTo(District::class, 'kecamatan');
+        return $this->belongsTo(District::class, 'kecamatan_id', 'code');
     }
     public function kalurahan(){
-        return $this->belongsTo(Village::class, 'kalurahan');
+        return $this->belongsTo(Village::class, 'kalurahan_id', 'code');
     }
 }

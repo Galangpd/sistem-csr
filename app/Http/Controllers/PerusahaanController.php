@@ -145,10 +145,10 @@ class PerusahaanController extends Controller
             'prioritas_kriteria' => 'required|array|min:1|max:2',
             'jenis_bantuan' => 'required|array',
             'bidang_usaha' => 'required|array',
-            'provinsi' => 'required|string',
-            'kabupaten' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kalurahan' => 'required|string',
+            'provinsi_id' => 'required|string',
+            'kabupaten_id' => 'required|string',
+            'kecamatan_id' => 'required|string',
+            'kalurahan_id' => 'required|string',
         ]);
 
         $allKriteria = Kriteria::pluck('id')->toArray();
@@ -169,10 +169,10 @@ class PerusahaanController extends Controller
                     'secondary_factor' => $secondaryFactors,
                     'bidang_usaha' => array_map('intval', $request->bidang_usaha),
                     'jenis_bantuan' => array_map('intval', $request->jenis_bantuan),
-                    'provinsi' => $request->provinsi,
-                    'kabupaten' => $request->kabupaten,
-                    'kecamatan' => $request->kecamatan,
-                    'kalurahan' => $request->kalurahan,
+                    'provinsi_id' => $request->provinsi,
+                    'kabupaten_id' => $request->kabupaten,
+                    'kecamatan_id' => $request->kecamatan,
+                    'kalurahan_id' => $request->kalurahan,
                 ]);
 
             DB::commit();
@@ -191,10 +191,10 @@ class PerusahaanController extends Controller
             'prioritas_kriteria' => 'required|array|min:1|max:2',
             'jenis_bantuan' => 'required|array',
             'bidang_usaha' => 'required|array',
-            'provinsi' => 'required|string',
-            'kabupaten' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kalurahan' => 'required|string',
+            'provinsi_id' => 'required|string',
+            'kabupaten_id' => 'required|string',
+            'kecamatan_id' => 'required|string',
+            'kalurahan_id' => 'required|string',
         ]);
 
         $allKriteria = Kriteria::pluck('id')->toArray();
@@ -216,10 +216,10 @@ class PerusahaanController extends Controller
                     'secondary_factor' => $secondaryFactors,
                     'bidang_usaha' => array_map('intval', $request->bidang_usaha),
                     'jenis_bantuan' => array_map('intval', $request->jenis_bantuan),
-                    'provinsi' => $request->provinsi,
-                    'kabupaten' => $request->kabupaten,
-                    'kecamatan' => $request->kecamatan,
-                    'kalurahan' => $request->kalurahan,
+                    'provinsi_id' => $request->provinsi,
+                    'kabupaten_id' => $request->kabupaten,
+                    'kecamatan_id' => $request->kecamatan,
+                    'kalurahan_id' => $request->kalurahan,
                 ]);
 
             DB::commit();
@@ -234,13 +234,13 @@ class PerusahaanController extends Controller
     public function detailMasyarakat($id)
     {
         $user = Auth::user();
-        $masyarakat = Masyarakat::where('id', $id)->first();
-        $bidangUsaha = BidangUsaha::where('id', $masyarakat->bidang_usaha)->first();
-        $jenisBantuan = JenisBantuan::where('id', $masyarakat->jenis_bantuan)->first();
-        $provinsi = Province::where('code', $masyarakat->provinsi)->first();
-        $kabupaten = City::where('code', $masyarakat->kabupaten)->first();
-        $kecamatan = District::where('code', $masyarakat->kecamatan)->first();
-        $kalurahan = Village::where('code', $masyarakat->kalurahan)->first();
+        $masyarakat = Masyarakat::findOrFail($id);
+        $bidangUsaha = BidangUsaha::where('id', $masyarakat->bidang_usaha_id)->first();
+        $jenisBantuan = JenisBantuan::where('id', $masyarakat->jenis_bantuan_id)->first();
+        $provinsi = Province::where('code', $masyarakat->provinsi_id)->first();
+        $kabupaten = City::where('code', $masyarakat->kabupaten_id)->first();
+        $kecamatan = District::where('code', $masyarakat->kecamatan_id)->first();
+        $kalurahan = Village::where('code', $masyarakat->kalurahan_id)->first();
 
 
          return view('perusahaan.detailMasyarakat', compact('masyarakat', 'user', 'bidangUsaha', 'jenisBantuan', 'provinsi', 'kabupaten', 'kecamatan', 'kalurahan'));
@@ -266,7 +266,7 @@ class PerusahaanController extends Controller
             $secondaryScore = 0;
             
             // Kriteria bidang usaha
-            $scoreBidang = $this->hitungGap($bidangUsahaPref, $masyarakat->bidang_usaha);
+            $scoreBidang = $this->hitungGap($bidangUsahaPref, $masyarakat->bidang_usaha_id);
             if (in_array($kriteriaMap['Bidang Usaha'], $coreFactors)) {
                 $coreScore += $scoreBidang;
             } elseif (in_array($kriteriaMap['Bidang Usaha'], $secondaryFactors)) {
@@ -274,7 +274,7 @@ class PerusahaanController extends Controller
             }
 
             // Kriteria jenis bantuan
-            $scoreJenis = $this->hitungGap($jenisBantuanPref, $masyarakat->jenis_bantuan);
+            $scoreJenis = $this->hitungGap($jenisBantuanPref, $masyarakat->jenis_bantuan_id);
             if (in_array($kriteriaMap['Jenis Bantuan'], $coreFactors)) {
                 $coreScore += $scoreJenis;
             } elseif (in_array($kriteriaMap['Jenis Bantuan'], $secondaryFactors)) {
@@ -295,8 +295,8 @@ class PerusahaanController extends Controller
 
             $totalScore = ($coreAvg * 0.6) + ($secondaryAvg * 0.4);
 
-            $bidangUsaha = BidangUsaha::find($masyarakat->bidang_usaha);
-            $jenisBantuan = JenisBantuan::find($masyarakat->jenis_bantuan);
+            $bidangUsaha = BidangUsaha::find($masyarakat->bidang_usaha_id);
+            $jenisBantuan = JenisBantuan::find($masyarakat->jenis_bantuan_id);
 
             $hasil[] = [
                 'id_masyarakat' => $masyarakat->id,
@@ -337,10 +337,10 @@ class PerusahaanController extends Controller
 
      private function hitungGapLokasi($perusahaan, $masyarakat): float
     {
-        if ($perusahaan->kalurahan === $masyarakat->kalurahan) return $this->konversiNilaiGap(0);
-        if ($perusahaan->kecamatan === $masyarakat->kecamatan) return $this->konversiNilaiGap(1);
-        if ($perusahaan->kabupaten === $masyarakat->kabupaten) return $this->konversiNilaiGap(2);
-        if ($perusahaan->provinsi === $masyarakat->provinsi) return $this->konversiNilaiGap(3);
+        if ($perusahaan->kalurahan_id === $masyarakat->kalurahan_id) return $this->konversiNilaiGap(0);
+        if ($perusahaan->kecamatan_id === $masyarakat->kecamatan_id) return $this->konversiNilaiGap(1);
+        if ($perusahaan->kabupaten_id === $masyarakat->kabupaten_id) return $this->konversiNilaiGap(2);
+        if ($perusahaan->provinsi_id === $masyarakat->provinsi_id) return $this->konversiNilaiGap(3);
         return $this->konversiNilaiGap(4);
     }
 

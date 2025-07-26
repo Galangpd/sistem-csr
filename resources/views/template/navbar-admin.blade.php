@@ -34,6 +34,11 @@
                                {{ Auth::user()->username }}
                             </p>
                         </div>
+                        <div class="px-4 py-3" role="none">
+                            <p class="text-sm text-gray-900" role="none">
+                               {{ Auth::user()->email }}
+                            </p>
+                        </div>
                         <ul class="py-1" role="none">
                             <li>
                                 <a href="{{ route('auth.logout') }}" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100"

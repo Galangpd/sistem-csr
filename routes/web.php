@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\SettingController;
@@ -14,6 +15,9 @@ Route::get('/', function () {
 Route::get('/pilih-pengguna', function () {
     return view('guest.pilihpengguna');
 });
+
+Route::get('/admin', [AdminController::class, 'showLogin'])->name('login');
+Route::post('/admin', [AdminController::class, 'login'])->name('admin.login');
 
 Route::get('/login', [AuthenticationController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthenticationController::class, 'login'])->name('auth.login');
@@ -51,4 +55,12 @@ Route::middleware(['auth','role:perusahaan'])->group(function () {
     Route::put('/setting/perusahaan/profile', [PerusahaanController::class, 'updateProfile'])->name('update.setting.perusahaan');
     Route::put('/setting/perusahaan/user', [SettingController::class, 'updateUser'])->name('update.user.perusahaan');
     Route::get('/dashboard/perusahaan/detail/{id}', [PerusahaanController::class, 'detailMasyarakat'])->name('detail.masyarakat');
+});
+
+Route::middleware(['auth','role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('dashboard.admin');
+    Route::get('/admin/perusahaan', [AdminController::class, 'perusahaan'])->name('perusahaan.admin');
+    Route::get('/admin/perusahaan/{id}', [AdminController::class, 'detailPerusahaan'])->name('detail.perusahaan.admin');
+    Route::get('/admin/masyarakat', [AdminController::class, 'masyarakat'])->name('masyarakat.admin');
+    Route::get('/admin/masyarakat/{id}', [AdminController::class, 'detailMasyarakat'])->name('detail.masyarakat.admin');
 });

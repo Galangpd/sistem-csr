@@ -1,5 +1,5 @@
 <aside id="default-sidebar"
-    class="fixed top-0 left-0 z-40 bg-white lg:w-[250px] h-screen rounded-xl shadow-lg border border-gray-300 md:m-4 md:h-[calc(100vh-2rem)] md:flex md:flex-col justify-between transition-transform -translate-x-full md:translate-x-0"
+    class="fixed top-0 left-0 z-40 bg-white md:w-[250px] h-screen rounded-xl shadow-lg border border-gray-300 md:m-4 md:h-[calc(100vh-2rem)] md:flex md:flex-col justify-between transition-transform -translate-x-full md:translate-x-0"
     aria-label="Sidebar">
     <div class="py-6 ml-4">
         <a href="/" class="flex flex-col justify-start space-x-3 rtl:space-x-reverse">
@@ -11,6 +11,56 @@
     </div>
     <div class="h-full px-3 overflow-y-auto">
         <ul class="space-y-2 font-medium">
+             @if ($user->role === 'admin')
+                {{-- Menu khusus Admin --}}
+                <li>
+                    <a href="{{ route('dashboard.admin') }}"
+                        class="side-menu hover:text-white {{ Request::is('admin/dashboard*') ? 'side-menu-active text-white' : '' }}">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Dashboard</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href=""
+                        class="side-menu hover:text-white {{ Request::is('admin/pendaftaran*') ? 'side-menu-active text-white' : '' }}">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-users-gear"></i>
+                            <span>Pendaftaran</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('perusahaan.admin') }}"
+                        class="side-menu hover:text-white {{ Request::is('admin/perusahaan*') ? 'side-menu-active text-white' : '' }}">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-regular fa-building"></i>
+                            <span>Perusahaan</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('masyarakat.admin') }}"
+                        class="side-menu hover:text-white {{ Request::is('admin/masyarakat*') ? 'side-menu-active text-white' : '' }}">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-regular fa-user"></i>
+                            <span>Masyarakat</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href=""
+                        class="side-menu hover:text-white {{ Request::is('admin/kriteria*') ? 'side-menu-active text-white' : '' }}">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-sliders"></i>
+                            <span>Kriteria</span>
+                        </div>
+                    </a>
+                </li>
+
+            @elseif ($user->role === 'perusahaan' || $user->role === 'masyarakat')
+            {{-- Menu untuk perusahaan atau masyarakat --}}
             <li>
                 <a href="{{ route($user->role === 'perusahaan' ? 'dashboard.perusahaan' : 'dashboard.masyarakat') }}"
                     class="side-menu hover:text-white {{ Request::is('dashboard*') ? 'side-menu-active text-white' : '' }}">
@@ -29,6 +79,7 @@
                     </div>
                 </a>
             </li>
+            @endif
             
         </ul>
     </div>

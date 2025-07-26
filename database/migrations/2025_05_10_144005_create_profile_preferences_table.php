@@ -20,17 +20,17 @@ return new class extends Migration
             $table->json('bidang_usaha');
             $table->json('jenis_bantuan');
 
-            $table->char('provinsi', 2);
-            $table->char('kabupaten', 4);
-            $table->char('kecamatan', 7);
-            $table->char('kalurahan', 10);
+            $table->char('provinsi_id', 2);
+            $table->char('kabupaten_id', 4);
+            $table->char('kecamatan_id', 7);
+            $table->char('kalurahan_id', 10);
             
             $table->timestamps();
 
-            $table->foreign('provinsi')->references('code')->on('indonesia_provinces');
-            $table->foreign('kabupaten')->references('code')->on('indonesia_cities');
-            $table->foreign('kecamatan')->references('code')->on('indonesia_districts');
-            $table->foreign('kalurahan')->references('code')->on('indonesia_villages');
+            $table->foreign('provinsi_id')->references('code')->on('indonesia_provinces');
+            $table->foreign('kabupaten_id')->references('code')->on('indonesia_cities');
+            $table->foreign('kecamatan_id')->references('code')->on('indonesia_districts');
+            $table->foreign('kalurahan_id')->references('code')->on('indonesia_villages');
         });
     }
 

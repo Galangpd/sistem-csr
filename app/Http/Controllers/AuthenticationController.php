@@ -89,7 +89,7 @@ class AuthenticationController extends Controller
 
             DB::commit();
 
-            return redirect()->route('login')->with('success', 'Registrasi perusahaan berhasil!');
+            return redirect()->route('login')->with('success', 'Registrasi akun berhasil! Tunggu akun anda diverifikasi terlebih dahulu');
             
         } catch (\Exception $e) {
             DB::rollBack();
@@ -140,7 +140,7 @@ class AuthenticationController extends Controller
 
             DB::commit();
 
-            return redirect()->route('login')->with('success', 'Registrasi kelompok masyarakat berhasil!');
+            return redirect()->route('login')->with('success', 'Registrasi akun berhasil! Tunggu akun anda diverifikasi terlebih dahulu');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -158,6 +158,18 @@ class AuthenticationController extends Controller
             ]);
         
             if (Auth::attempt($credentials)) {
+                $user = Auth::user();
+
+                if ($user->status === 'rejected') {
+                    Auth::logout();
+                    return redirect()->back()->with('error', 'Akun Anda telah ditolak dan tidak dapat login.');
+                }
+
+                if ($user->status === 'pending') {
+                    Auth::logout();
+                    return redirect()->back()->with('error', 'Akun Anda belum disetujui oleh admin.');
+                }
+
                 $request->session()->regenerate();
         
                 $role = Auth::user()->role;

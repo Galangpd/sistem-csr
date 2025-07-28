@@ -59,8 +59,19 @@ Route::middleware(['auth','role:perusahaan'])->group(function () {
 
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('dashboard.admin');
+    Route::get('/admin/register-perusahaan', [AdminController::class, 'pendaftaranPerusahaan'])->name('register.perusahaan.admin');
+    Route::get('/admin/register-masyarakat', [AdminController::class, 'pendaftaranMasyarakat'])->name('register.masyarakat.admin');
+    Route::post('/admin/approve/{id}', [AdminController::class, 'approveUser'])->name('admin.approve');
+    Route::post('/admin/reject/{id}', [AdminController::class, 'rejectUser'])->name('admin.reject');
     Route::get('/admin/perusahaan', [AdminController::class, 'perusahaan'])->name('perusahaan.admin');
     Route::get('/admin/perusahaan/{id}', [AdminController::class, 'detailPerusahaan'])->name('detail.perusahaan.admin');
     Route::get('/admin/masyarakat', [AdminController::class, 'masyarakat'])->name('masyarakat.admin');
     Route::get('/admin/masyarakat/{id}', [AdminController::class, 'detailMasyarakat'])->name('detail.masyarakat.admin');
+    Route::get('/admin/kriteria', [AdminController::class, 'kriteria'])->name('kriteria.admin');
+    Route::get('/admin/kriteria/bidang-usaha', [AdminController::class, 'bidangUsaha'])->name('bidangUsaha.kriteria.admin');
+    Route::post('/admin/kriteria/bidang-usaha', [AdminController::class, 'tambahBidang'])->name('create.bidangUsaha.admin');
+    Route::put('/admin/kriteria/bidang-usaha/{id}', [AdminController::class, 'updateBidang'])->name('update.bidangUsaha.admin');
+    Route::get('/admin/kriteria/jenis-bantuan', [AdminController::class, 'jenisBantuan'])->name('jenisBantuan.kriteria.admin');
+    Route::post('/admin/kriteria/jenis-bantuan', [AdminController::class, 'tambahBantuan'])->name('create.jenisBantuan.admin');
+    Route::put('/admin/kriteria/jenis-bantuan/{id}', [AdminController::class, 'updateBantuan'])->name('update.jenisBantuan.admin');
 });

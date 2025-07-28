@@ -23,13 +23,21 @@
                     </a>
                 </li>
                 <li>
-                    <a href=""
-                        class="side-menu hover:text-white {{ Request::is('admin/pendaftaran*') ? 'side-menu-active text-white' : '' }}">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-users-gear"></i>
-                            <span>Pendaftaran</span>
-                        </div>
-                    </a>
+                    <button type="button" class="side-menu transition duration-75 hover:text-white {{ Request::is('admin/register*') ? 'side-menu-active text-white' : '' }}" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Pendaftaran</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                        <li>
+                            <a href="{{ route('register.perusahaan.admin') }}" class="side-menu pl-11 hover:text-white {{ Request::is('admin/register-perusahaan*') ? 'side-menu-active text-white' : '' }}">Perusahaan</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('register.masyarakat.admin') }}" class="side-menu pl-11 hover:text-white {{ Request::is('admin/register-masyarakat*') ? 'side-menu-active text-white' : '' }}">Masyarakat</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ route('perusahaan.admin') }}"
@@ -50,7 +58,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href=""
+                    <a href="{{ route('kriteria.admin') }}"
                         class="side-menu hover:text-white {{ Request::is('admin/kriteria*') ? 'side-menu-active text-white' : '' }}">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-sliders"></i>

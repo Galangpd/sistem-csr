@@ -81,7 +81,7 @@
                     <select name="provinsi" id="provinsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="" selected disabled>Pilih Provinsi</option>
                             @foreach ($provinsi as $item)
-                                <option value="{{ $item->code }}" @if (isset($preference->provinsi) && $preference->provinsi == $item->code) selected @endif>{{ $item->name }}</option>
+                                <option value="{{ $item->code }}" @if (isset($preference->provinsi_id) && $preference->provinsi_id == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
                     @error('provinsi')
@@ -93,7 +93,7 @@
                     <select name="kabupaten" id="kabupaten" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="" selected disabled>Pilih Provinsi terlebih dahulu</option>
                             @foreach ($kabupaten as $item)
-                                <option value="{{ $item->code }}" @if (isset($preference->kabupaten) && $preference->kabupaten == $item->code) selected @endif>{{ $item->name }}</option>
+                                <option value="{{ $item->code }}" @if (isset($preference->kabupaten_id) && $preference->kabupaten_id == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
                     @error('kabupaten')
@@ -105,7 +105,7 @@
                     <select name="kecamatan" id="kecamatan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="" selected disabled>Pilih Kabupaten terlebih dahulu</option>
                             @foreach ($kecamatan as $item)
-                                <option value="{{ $item->code }}" @if (isset($preference->kecamatan) && $preference->kecamatan == $item->code) selected @endif>{{ $item->name }}</option>
+                                <option value="{{ $item->code }}" @if (isset($preference->kecamatan_id) && $preference->kecamatan_id == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
                     @error('kecamatan')
@@ -117,7 +117,7 @@
                     <select name="kalurahan" id="kalurahan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                         <option value="" selected disabled>Pilih Kecamatan terlebih dahulu</option>
                             @foreach ($kalurahan as $item)
-                                <option value="{{ $item->code }}" @if (isset($preference->kalurahan) && $preference->kalurahan == $item->code) selected @endif>{{ $item->name }}</option>
+                                <option value="{{ $item->code }}" @if (isset($preference->kalurahan_id) && $preference->kalurahan_id == $item->code) selected @endif>{{ $item->name }}</option>
                             @endforeach
                     </select>
                     @error('kalurahan')
@@ -273,6 +273,54 @@
             $('#kalurahan').html(options);
         });
     });
+</script>
+
+<script>
+    $(document).ready(function () {
+    const selectedProvinsi = '{{ $preference->provinsi_id ?? "" }}';
+    const selectedKabupaten = '{{ $preference->kabupaten_id ?? "" }}';
+    const selectedKecamatan = '{{ $preference->kecamatan_id ?? "" }}';
+    const selectedKalurahan = '{{ $preference->kalurahan_id ?? "" }}';
+
+    if (selectedProvinsi) {
+        $('#provinsi').val(selectedProvinsi).trigger('change');
+
+        // Tunggu sedikit waktu agar kabupaten selesai dimuat
+        setTimeout(() => {
+            $.get('/get-kabupaten/' + selectedProvinsi, function (kabupatens) {
+                let options = '<option selected disabled>Pilih Kabupaten</option>';
+                kabupatens.forEach(item => {
+                    let selected = item.code == selectedKabupaten ? 'selected' : '';
+                    options += `<option value="${item.code}" ${selected}>${item.name}</option>`;
+                });
+                $('#kabupaten').html(options).trigger('change');
+
+                setTimeout(() => {
+                    $.get('/get-kecamatan/' + selectedKabupaten, function (kecamatans) {
+                        let options = '<option selected disabled>Pilih Kecamatan</option>';
+                        kecamatans.forEach(item => {
+                            let selected = item.code == selectedKecamatan ? 'selected' : '';
+                            options += `<option value="${item.code}" ${selected}>${item.name}</option>`;
+                        });
+                        $('#kecamatan').html(options).trigger('change');
+
+                        setTimeout(() => {
+                            $.get('/get-kalurahan/' + selectedKecamatan, function (kalurahans) {
+                                let options = '<option selected disabled>Pilih Kalurahan</option>';
+                                kalurahans.forEach(item => {
+                                    let selected = item.code == selectedKalurahan ? 'selected' : '';
+                                    options += `<option value="${item.code}" ${selected}>${item.name}</option>`;
+                                });
+                                $('#kalurahan').html(options);
+                            });
+                        }, 300);
+                    });
+                }, 300);
+            });
+        }, 300);
+    }
+});
+
 </script>
 
 <script>

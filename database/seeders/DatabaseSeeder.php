@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin123'),
             'role' => 'admin',
             'remember_token' => Str::random(10),
+            'status'       => 'approved',
+            'verified_at'  => now(),
         ]);
         User::factory(10)->create();
         $this->call([

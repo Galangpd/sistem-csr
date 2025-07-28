@@ -101,7 +101,9 @@ class MasyarakatController extends Controller
     {
         $user = Auth::user();
         $masyarakat = Masyarakat::where('user_id', $user->id)->firstOrFail();
-        $perusahaans = Perusahaan::all();
+        $perusahaans = Perusahaan::whereHas('user', function ($query) {
+            $query->where('status', 'approved');
+        })->get();
         $kriteriaMap = Kriteria::pluck('id', 'nama')->toArray();
 
         $hasil = [];

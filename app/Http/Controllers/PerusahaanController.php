@@ -250,7 +250,9 @@ class PerusahaanController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('user_id', $user->id)->firstOrFail();
-        $masyarakatList = Masyarakat::all();
+        $masyarakatList = Masyarakat::whereHas('user', function ($query) {
+            $query->where('status', 'approved');
+        })->get();
         $preference = ProfilePreference::where('id_perusahaan', $perusahaan->id)->firstOrFail();
         $kriteriaMap = Kriteria::pluck('id', 'nama')->toArray();
 

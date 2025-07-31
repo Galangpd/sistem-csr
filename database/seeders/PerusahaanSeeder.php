@@ -19,6 +19,7 @@ class PerusahaanSeeder extends Seeder
         $users->each(function ($user) {
             Perusahaan::factory()->create([
                 'user_id' => $user->id,
+                'email' => $user->email
             ]);
         });
     }

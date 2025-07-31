@@ -145,10 +145,10 @@ class PerusahaanController extends Controller
             'prioritas_kriteria' => 'required|array|min:1|max:2',
             'jenis_bantuan' => 'required|array',
             'bidang_usaha' => 'required|array',
-            'provinsi_id' => 'required|string',
-            'kabupaten_id' => 'required|string',
-            'kecamatan_id' => 'required|string',
-            'kalurahan_id' => 'required|string',
+            'provinsi' => 'required|string',
+            'kabupaten' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kalurahan' => 'required|string',
         ]);
 
         $allKriteria = Kriteria::pluck('id')->toArray();
@@ -191,10 +191,10 @@ class PerusahaanController extends Controller
             'prioritas_kriteria' => 'required|array|min:1|max:2',
             'jenis_bantuan' => 'required|array',
             'bidang_usaha' => 'required|array',
-            'provinsi_id' => 'required|string',
-            'kabupaten_id' => 'required|string',
-            'kecamatan_id' => 'required|string',
-            'kalurahan_id' => 'required|string',
+            'provinsi' => 'required|string',
+            'kabupaten' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kalurahan' => 'required|string',
         ]);
 
         $allKriteria = Kriteria::pluck('id')->toArray();
@@ -348,6 +348,12 @@ class PerusahaanController extends Controller
 
     private function konversiNilaiGap($gap)
     {
+        if ($gap > 4) {
+            return 1;
+        } elseif ($gap < -4) {
+            return 1;
+        }
+        
         $skorMap = [
             0 => 5,
             1 => 4.5,

@@ -19,6 +19,7 @@ class MasyarakatSeeder extends Seeder
         $users->each(function ($user) {
             Masyarakat::factory()->create([
                 'user_id' => $user->id,
+                'email' => $user->email
             ]);
         });
     }

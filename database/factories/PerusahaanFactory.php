@@ -18,7 +18,6 @@ class PerusahaanFactory extends Factory
             'logo' => 'asset/user.png',
             'bidang_usaha' => fake()->catchPhrase(),
             'alamat' => fake()->address(),
-            'email' => fake()->unique()->safeEmail(),
             'telepon' => fake()->phoneNumber(),
         ];
     }

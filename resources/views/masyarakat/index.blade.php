@@ -47,9 +47,6 @@
                         Alamat
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Total Skor
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         Aksi
                     </th>
                 </tr>
@@ -69,9 +66,6 @@
                     </td>
                     <td class="px-6 py-4">
                         {{ $item['alamat'] }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ $item['total_skor'] }}
                     </td>
                     <td class="px-6 py-4">
                         <a href="{{ route('detail.perusahaan', $item['id_perusahaan']) }}">

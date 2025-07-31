@@ -25,6 +25,7 @@ class BidangUsahaFactory extends Factory
                 'budaya',
                 'lingkungan',
                 'agama',
+                'kesehatan',
             ]),
         ];
     }

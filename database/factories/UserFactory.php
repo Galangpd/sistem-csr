@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'role' => Arr::random(['perusahaan', 'masyarakat']),
             'remember_token' => Str::random(10),
-            'status'       => $this->faker->randomElement(['pending', 'approved', 'rejected']),
+            'status'       => $this->faker->randomElement(['approved']),
             'verified_at'  => now(),
         ];
     }

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'status'       => 'approved',
             'verified_at'  => now(),
         ]);
-        User::factory(10)->create();
+        User::factory(30)->create();
         $this->call([
             BidangUsahaSeeder::class,
             JenisBantuanSeeder::class,

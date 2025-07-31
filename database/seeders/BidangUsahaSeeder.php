@@ -19,6 +19,7 @@ class BidangUsahaSeeder extends Seeder
             ['nama' => 'Sosial'],
             ['nama' => 'Lingkungan'],
             ['nama' => 'Agama'],
+            ['nama' => 'Kesehatan'],
         ];
 
         BidangUsaha::insert($bidangUsaha);

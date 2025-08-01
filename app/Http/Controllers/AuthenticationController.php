@@ -203,9 +203,14 @@ class AuthenticationController extends Controller
 
     public function sendResetLinkEmail(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-        ]);
+        try {
+            $request->validate([
+                'email' => 'required|email|exists:users,email',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->with('error', 'Email tidak terdaftar.')->withErrors($e->errors());
+        }
+
 
         $status = Password::sendResetLink(
             $request->only('email')

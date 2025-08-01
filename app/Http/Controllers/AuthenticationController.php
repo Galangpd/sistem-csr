@@ -177,14 +177,14 @@ class AuthenticationController extends Controller
                 return match ($role) {
                     'perusahaan' => redirect()->route('dashboard.perusahaan')->with('success', 'Login berhasil sebagai Perusahaan!'),
                     'masyarakat' => redirect()->route('dashboard.masyarakat')->with('success', 'Login berhasil sebagai Masyarakat!'),
-                    default => throw new \Exception('Role tidak dikenali')
+                    default => redirect()->back()->with('error', 'Role pengguna tidak dikenali.'),
                 };
             }
         
             return redirect()->back()->with('error', 'Gagal login! Username atau password salah');
         
         } catch (\Exception $e) {
-            return back()->withErrors(['general' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
         
     }
